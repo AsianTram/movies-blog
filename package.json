@@ -1,0 +1,28 @@
+{
+  "name": "movies-blog",
+  "version": "1.0.0",
+  "description": "Blog to evaluate movies and celebrities",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "server": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AsianTram/movies-blog.git"
+  },
+  "author": "Tram Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AsianTram/movies-blog/issues"
+  },
+  "homepage": "https://github.com/AsianTram/movies-blog#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.2.2",
+    "express": "^4.17.1",
+    "gravatar": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.1"
+  }
+}

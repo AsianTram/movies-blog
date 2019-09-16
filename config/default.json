@@ -1,0 +1,3 @@
+{
+    "mongoUrl":"mongodb+srv://tram123:tram123@cluster0-mr2dc.mongodb.net/test?retryWrites=true&w=majority"
+}
