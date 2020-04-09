@@ -4,15 +4,18 @@ const Schema =mongoose.Schema;
 const MovieSchema = new Schema({
     user:{
         type: mongoose.Types.ObjectId,
-        ref: user
+        ref: "User"
     },
+    picture:{
+        type: String
+    }, 
     name: {
         type: String,
         required: true
     },
     
     content: [{text: Boolean, value: String}],
-    comment: [{user: {type: mongoose.Types.ObjectId, ref: user},
+    comment: [{user: {type: mongoose.Types.ObjectId, ref: "User"},
          value: String}],
     followed:{
         type: [mongoose.Types.ObjectId]

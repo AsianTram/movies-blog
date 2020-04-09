@@ -4,12 +4,12 @@ const Schema =mongoose.Schema;
 const ProfileSchema = new Schema({
     user:{
         type: mongoose.Types.ObjectId,
-        ref: user
+        ref: "User"
     },
     name: {
         type: String,
         required: true,
-        ref: user
+        ref: "User"
     },
     bio: {
         type: String
@@ -18,7 +18,9 @@ const ProfileSchema = new Schema({
         facebook: String,
         instagram: String,
         linkedin: String,
-        website: String
+        website: String,
+        youtube: String
+
     },
     posts: {
         type: Array

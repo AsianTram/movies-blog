@@ -2,7 +2,7 @@ const mongoose= require('mongoose');
 const config = require('config');
 
 const dbConnect= async ()=>  {
-    const res= await mongoose.connect(config.get('mongoUrl'),{ useNewUrlParser: true, useUnifiedTopology: true });
+    const res= await mongoose.connect(config.get('mongoUrl'),{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
     if(res){
         console.log("Connect to mongoose");
     }
