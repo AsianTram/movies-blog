@@ -65,4 +65,16 @@ router.get('/', auth, async(req,res)=>{
         res.status(500).send('Server error');
     }
 })
+router.delete('/delete/', auth, async (req,res)=>{
+    try {
+        await Profile.remove({user: req.user.id});
+        await User.remove({_id: req.user.id});
+        res.send("User is removed");
+
+    } catch (error) {
+        console.log("Failed to remove user"+ error);
+        res.status(500).send('Server error');
+
+    }
+})
 module.exports=router;

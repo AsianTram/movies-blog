@@ -14,12 +14,22 @@ const MovieSchema = new Schema({
         required: true
     },
     
-    content: [{text: Boolean, value: String}],
+    content: {
+        type: String,
+        required: true
+    },
     comment: [{user: {type: mongoose.Types.ObjectId, ref: "User"},
          value: String}],
-    followed:{
+    likes:[{user:{
         type: [mongoose.Types.ObjectId]
-    },
+
+    }
+    }],
+    followed:[{user:{
+        type: [mongoose.Types.ObjectId]
+
+    }
+    }],
     date:{
         type: Date,
         default: Date.now
