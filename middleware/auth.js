@@ -1,3 +1,5 @@
+import { UnauthorizedError, FobiddenError } from '../helpers/apiError';
+
 const jwt= require('jsonwebtoken');
 const config= require('config');
 
@@ -11,13 +13,12 @@ const authenticate=async(req,res,next)=>{
 
         } catch (error) {
             console.log(error);
-            res.status(401).json({msg:"Token is not valid"});
+            throw new FobiddenError("Token is not valid")
         }
 
     }
     else{
-        return res.status(400).json({msg:"No token, authorization denied"});
-
+        throw new UnauthorizedError("You need to login")
     }
 }
 

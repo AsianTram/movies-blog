@@ -1,13 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const auth = require('../../middleware/auth');
-const { check, validationResult } = require('express-validator');
-const gravatar = require('gravatar');
-const bcript = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('config');
+import express from 'express'
+import gravatar from 'gravatar'
+import bcript from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import config from 'config';
+import validator from 'express-validator';
 
-const User = require('../../models/User');
+// import auth from '../../middleware/auth.js';
+import User from '../../models/User.js';
+
+const router = express.Router();
+const  {check, validationResult } = validator
 
 router.post('/signup', [check('name', 'Name is required').not().isEmpty(), check('email', 'Email is required').not().isEmpty(), check('password', "Password must be at least 6 digits").isLength({ min: 6 })], async (req, res) => {
     const errors = validationResult(req);
@@ -20,11 +22,10 @@ router.post('/signup', [check('name', 'Name is required').not().isEmpty(), check
         //Checking the availability
         var exsist= await User.findOne({email});
         if(exsist){
-            console.log(exsist);
             return res.status(400).send('User has been existed');
         }
         // Collecting avatar
-        var avatar = gravatar.url('emerleite@gmail.com', { s: '200', r: 'pg', d: '404' });
+        var avatar = gravatar.url(email, { s: '200', r: 'pg', d: '404' });
 
         //Hash password
         var salt = await bcript.genSalt(10);
@@ -71,4 +72,4 @@ router.post('/login',[check('email','Please give the email').not().isEmpty(), ch
     }
 })
 
-module.exports = router;
+export default router;

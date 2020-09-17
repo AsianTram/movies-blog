@@ -1,0 +1,906 @@
+openapi: 3.0.0
+info:
+  description: |
+    This is Movies-blog API to visualize.
+  version: "1.0.0"
+  title: Movies-blog
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: tramnguyen1601437@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: https://virtserver.swaggerhub.com/AsianTram/Ecommerce-api/1.0.0
+tags:
+  - name: user
+    description: User Authentication
+  - name: profile
+    description: User Profile
+  - name: post
+    description: Post Information
+ 
+paths:
+  /api/user/signup:
+    post:
+      tags:
+        - user
+      summary: Sign up with username and password
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: Bad Request
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Fobidden (for existing account)
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - name
+                - email
+                - password
+  /api/user/login/:
+    post:
+      tags:
+        - user
+      summary: Login with username and password
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: Bad Request
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+  /api/profile/:
+    post:
+      tags:
+        - profile
+      summary: Create User's Profile
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          description: Bad Request
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        $ref: '#/components/requestBodies/Profile'
+      security:
+        - bearerAuth: []
+    get:
+      tags:
+        - profile
+      summary: Get User's Profile
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+  /api/profile/update/:
+    put:
+      tags:
+        - profile
+      summary: Update User's Profile
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          description: Bad Request
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        $ref: '#/components/requestBodies/Profile'
+      security:
+        - bearerAuth: []
+  /api/profile/delete:
+    delete:
+      tags:
+        - profile
+      summary: Delete User's Profile
+      responses:
+        '200':
+          description: Successful
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Bad Request for non-exsisting
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+  /api/post/:
+    post:
+      tags:
+        - post
+      summary: Create A post
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: Bad Request
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        $ref: '#/components/requestBodies/Post'
+      security:
+        - bearerAuth: []
+    get:
+      tags:
+        - post
+      summary: Get All posts
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/post/{id}:
+    get:
+      tags:
+        - post
+      summary: Get a post by Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - post
+      summary: Update a post by Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Post'
+      responses:
+        '201':
+          description: Successful updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+    delete:
+      tags:
+        - post
+      summary: Delete a post by Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+  /api/post/{id}/like/:
+    put:
+      tags:
+        - post
+      summary: Like a post by Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: string
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+  /api/post/{id}/unlike/:
+    put:
+      tags:
+        - post
+      summary: Unlike a post by Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: string
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+  /api/post/{id}/follow/:
+    put:
+      tags:
+        - post
+        - profile
+      summary: Follow a post to save in user's profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: 
+            type: string
+      responses:
+        '200':
+            description: Successful
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    user:
+                      type: string
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+  /api/post/{id}/unfollow/:
+    put:
+      tags:
+        - post
+        - profile
+      summary: Unfollow a post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: 
+            type: string
+      responses:
+        '200':
+            description: Successful
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    user:
+                      type: string
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+  /api/post/{postId}/comment/:
+    put:
+      tags:
+        - post
+      summary: Comment a post by Id
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment: 
+                  type: string
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comment: 
+                    type: object
+                    properties: 
+                      user: 
+                        type: string
+                      value:
+                        type: string
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+  /api/post/{postId}/comment/{commentId}:
+    put:
+      tags:
+        - post
+      summary: Update Comment in a post by Id
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: commentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment: 
+                  type: string
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+    delete: 
+      tags:
+        - post
+      summary: Delete Comment in a post by Id
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: commentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful deleted
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+        
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        username:
+          type: string
+        avatar: 
+          type: string
+        picture:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [movie, celebrity, all]
+        content:
+          type: string
+        comments:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+              name:
+                type: string
+              avatar:
+                type: string
+              value:
+                type: string
+        likes:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+              name:
+                type: string
+              avatar:
+                type: string
+        followed:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+        date:
+          type: string
+          format: date
+      xml:
+        name: Post
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        isAdmin:
+          type: boolean
+          default: false
+        isBanned:
+          type: boolean
+          default: false
+        avatar:
+          type: string
+      xml:
+        name: User
+    Profile:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        name:
+          type: string
+          description: Name from the User Model
+        bio:
+          type: string
+        socialmedia:
+          type: object
+          properties:
+            facebook:
+              type: string
+            instagram:
+              type: string
+            linkedin:
+              type: string
+            website:
+              type: string
+            youtube:
+              type: string
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+        followedposts:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum: [movie, celebrity]
+              id:
+                type: string
+      xml:
+        name: Profile
+    Error:
+      type: object
+      properties: 
+        statusCode:
+          type: number
+        message: 
+          type: string
+        source: 
+          type: string
+  requestBodies:
+    Profile:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              bio:
+                type: string
+              facebook:
+                type: string
+              instagram:
+                type: string
+              linkedin:
+                type: string
+              website:
+                type: string
+              youtube: 
+                type: string
+            required:
+              - name
+    Post:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum: [movie, celebrity, all]
+              content:
+                type: string
+              picture:
+                type: string
+            required:
+              - name
+              - type
+              - content
+              
+  securitySchemes:
+    bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT

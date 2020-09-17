@@ -1,5 +1,5 @@
-const mongoose= require('mongoose');
-const config = require('config');
+import mongoose from 'mongoose';
+import config from 'config';
 
 const dbConnect= async ()=>  {
     const res= await mongoose.connect(config.get('mongoUrl'),{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
@@ -11,4 +11,4 @@ const dbConnect= async ()=>  {
     }
 }
 
-module.exports= dbConnect;
+export default dbConnect

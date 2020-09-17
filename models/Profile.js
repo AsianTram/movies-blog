@@ -1,4 +1,4 @@
-const mongoose= require('mongoose');
+import mongoose from 'mongoose';
 const Schema =mongoose.Schema;
 
 const ProfileSchema = new Schema({
@@ -27,9 +27,6 @@ const ProfileSchema = new Schema({
     },
     followedposts:{
         type: Array
-    },
-    points:{
-        type: Number
     }
 })
 

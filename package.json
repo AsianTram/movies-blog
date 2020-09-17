@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "server": "nodemon index"
+    "server": "nodemon index",
+    "test": "jest --runInBand ./test"
   },
   "repository": {
     "type": "git",
@@ -18,12 +19,28 @@
   },
   "homepage": "https://github.com/AsianTram/movies-blog#readme",
   "dependencies": {
+    "babel-jest": "^26.3.0",
     "bcryptjs": "^2.4.3",
     "config": "^3.2.2",
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
     "gravatar": "^1.8.0",
+    "jest": "^26.4.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.1"
-  }
+    "mongodb-memory-server": "^6.7.5",
+    "mongoose": "^5.7.1",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "transform": {
+      "\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    "moduleFileExtensions": ["js" ],
+    "moduleDirectories": [
+      "node_modules"
+    ]
+  },
+  "type": "module"
 }
