@@ -1,4 +1,4 @@
-import { UnauthorizedError, FobiddenError } from '../helpers/apiError';
+const { UnauthorizedError, FobiddenError } =require('../helpers/apiError');
 
 const jwt= require('jsonwebtoken');
 const config= require('config');

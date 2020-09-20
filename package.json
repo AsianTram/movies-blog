@@ -32,15 +32,6 @@
     "supertest": "^4.0.2"
   },
   "jest": {
-    "testEnvironment": "node",
-    "verbose": true,
-    "transform": {
-      "\\.js$": "<rootDir>/node_modules/babel-jest"
-    },
-    "moduleFileExtensions": ["js" ],
-    "moduleDirectories": [
-      "node_modules"
-    ]
-  },
-  "type": "module"
+    "testEnvironment": "node"
+  }
 }

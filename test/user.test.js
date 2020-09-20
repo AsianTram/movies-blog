@@ -1,8 +1,8 @@
-import request from 'supertest'
+const request =require('supertest')
 
-import User from '../models/User.js'
-import app from'../index.js'
-import dbhandlers from './db-handler.js'
+const User = require('../models/User.js')
+const app = require('../index.js')
+const dbhandlers = require('./db-handler.js')
 
 describe('user api', ()=>{
   beforeEach(async ()=>{
@@ -24,6 +24,6 @@ describe('user api', ()=>{
         password: '123456'
       })
     expect(res.status).toBe(200)
-    expect(res.body.token).toBeWorthy();
+    expect(res.body.token).not().toBeNull();
   })
 })
