@@ -8,6 +8,7 @@ const dbConnect= async ()=>  {
     }
     else{
         console.log("Failed to connect to mongoose");
+        process.exit(1)
     }
 }
 

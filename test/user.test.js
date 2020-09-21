@@ -24,6 +24,6 @@ describe('user api', ()=>{
         password: '123456'
       })
     expect(res.status).toBe(200)
-    expect(res.body.token).not().toBeNull();
+    expect(res.body.token).not.toBeNull();
   })
 })

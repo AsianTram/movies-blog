@@ -12,7 +12,7 @@ class BadRequestError extends ApiError{
   }
 }
 class UnauthorizedError extends ApiError{
-  constructor(message='Unauthorized request. Please Login', source){
+  constructor(message='Please login with a correct account', source){
     super(401, message, source)
   }
 }

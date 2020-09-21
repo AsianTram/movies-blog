@@ -4,7 +4,7 @@
   "description": "Blog to evaluate movies and celebrities",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "nodemon index",
     "server": "nodemon index",
     "test": "jest --runInBand ./test"
   },

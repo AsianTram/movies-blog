@@ -20,7 +20,7 @@ router.post('/signup', [check('name', 'Name is required').not().isEmpty(), check
         //Checking the availability
         var exsist= await User.findOne({email});
         if(exsist){
-            throw new UnauthorizedError('User has been existed');
+            throw new UnauthorizedError('User existed');
         }
         // Collecting avatar
         var avatar = gravatar.url(email, { s: '200', r: 'pg', d: '404' });
@@ -51,12 +51,12 @@ router.post('/login',[check('email','Please give the email').not().isEmpty(), ch
         // Find User
         var user= await User.findOne({email});
         if(!user){
-            throw new UnauthorizedError('No user found');
+            throw new UnauthorizedError()
         }
         //Compare password
         var check_password= await bcript.compare(password, user.password);
         if(!check_password){
-            throw new UnauthorizedError('User is unauthorized');
+            throw new UnauthorizedError();
         }
         //Generate web token
         var token = jwt.sign({user:{id:user._id}}, config.get('privateKey'), {expiresIn:'2h'});

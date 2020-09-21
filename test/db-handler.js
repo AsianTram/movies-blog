@@ -4,6 +4,7 @@ const {MongoMemoryServer}= require('mongodb-memory-server');
 const mongod = new MongoMemoryServer();
 
 module.exports.connect = async () => {
+    this.closeDatabase()
     const uri = await mongod.getConnectionString();
 
     const mongooseOpts = {

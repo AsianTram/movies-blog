@@ -15,8 +15,8 @@ dbConnect();
 
 
 app.use("/api/user", require("./routes/api/user.js"));
-// app.use("/api/profile", require("./routes/api/profile"));
-// app.use("/api/post", require("./routes/api/post"));
+app.use("/api/profile", require("./routes/api/profile"));
+app.use("/api/post", require("./routes/api/post"));
 
 app.use(apiErrorHandler);
 

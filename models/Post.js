@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 const Schema =mongoose.Schema;
 
 const PostSchema = new Schema({
@@ -8,7 +8,7 @@ const PostSchema = new Schema({
         required: true
     },
     username: {
-        type: string,
+        type: String,
         required: true
     },
     picture:{
@@ -19,7 +19,7 @@ const PostSchema = new Schema({
         required: true
     },
     type: {
-        type: string,
+        type: String,
         enum: ['movie', 'celebrity', 'all'],
         required: true
     },
@@ -34,35 +34,35 @@ const PostSchema = new Schema({
             required: true
         },
         name: {
-            type: string,
+            type: String,
             required: true
         },
         avatar: {
-            type: string
+            type: String
         },
         value: {
-            type: string,
+            type: String,
             required: true
         }
     }],
     likes: [{
         user:{ 
-            type: [mongoose.Types.ObjectId],
+            type: mongoose.Types.ObjectId,
             ref: "User",
             required: true
         },
         name: {
-            type: string,
+            type: String,
             required: true
 
         },
         avatar: {
-            type: string
+            type: String
         }
     }],
     followed:[{
         user: {
-            type: [mongoose.Types.ObjectId],
+            type: mongoose.Types.ObjectId,
             ref: 'User',
             required: true
     }
@@ -73,4 +73,4 @@ const PostSchema = new Schema({
     }
 })
 
-module.exports= Movie= mongoose.model("post", PostSchema)
+module.exports= Post= mongoose.model("post", PostSchema)
