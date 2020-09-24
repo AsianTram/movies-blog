@@ -1,8 +1,8 @@
-const { BadRequestError } = require("../helpers/apiError")
+const { InternalServerError } = require("../helpers/apiError")
 
 module.exports= function(err, req, res, next){
   if(!err.statusCode){
-    err= new BadRequestError();
+    err= new InternalServerError();
   }
   res.status(err.statusCode).json({
     status: 'error',
