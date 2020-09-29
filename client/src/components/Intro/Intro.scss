@@ -1,0 +1,85 @@
+@import '../../styles/variable';
+
+.intro1{
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $primary-color1;
+  img{
+    width: 80%;
+  }
+  &__desc{
+    color: $secondary-color1;
+    width: 80%;
+    margin: auto;
+    padding: 1em 0;
+  }
+  &__buttons{
+    display: flex;
+    justify-content: flex-start;
+     button{
+       background-color: $accent3;
+       margin-right: 1em;
+       padding: 0.5em 1em;
+       border-radius: 5%;
+       border: 0;
+       &:hover{
+        background-color: $accent2;
+       }
+     }
+  }
+}
+.intro2{
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $primary-color2;
+  img{
+    width: 80%;
+  }
+  &__desc{
+    color: $secondary-color1;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 2em;
+    button{
+      background-color: $accent3;
+      padding: 0.5em 1em;
+      border-radius: 5%;
+      border: 0;
+      &:hover{
+        background-color: $accent2;
+       }
+    }
+  }
+}
+@media only screen and (min-width: 768px) {
+  .intro1{
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 6em 0;
+    &__desc{
+      width: 45%;
+      margin: 0;
+    }
+    img {
+      width: 30%;
+    }
+  }
+  .intro2{
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 6em 0;
+    &__desc{
+      width: 40%;
+      margin: 0;
+    }
+    img {
+      width: 30%;
+    }
+  }
+
+}

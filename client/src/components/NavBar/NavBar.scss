@@ -6,23 +6,21 @@
   color: $primary-color1;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  &__links{
-    width: 60%;
+  align-items: flex-start;
+  &__right{
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding-top: 25px;
   }
-  &__dropdown{
-    background-color: transparent;
-    border: none;
-    text-transform: none;
-    font-weight: normal;
+  &__links{
+    display: none;
   }
   &__unauth{
     // width: 40%;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     button{
       margin: 0 5px;
       background-color: $accent1;
@@ -32,15 +30,59 @@
     }
   }
   &__hamburger{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     button{
-      text-transform: none;
+      font-family: 'FontAwesome';
+      font-style: normal;
+      background-color: transparent;
+      border: none;
+    }
+  }
+  &__hamburger-toggle{
+    p{
+      font-weight: bold;
+      border-bottom: 3px solid transparent;
+      &:hover{
+        border-color: black;
+      }
     }
   }
 }
 @media only screen and (min-width: 768px) {
   .navbar{
-    &__links{
+    &__right{
       width: 40%;
+      padding-top: 0 ;
+      align-items: center;
+    }
+    &__links{
+      width: 60%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      p{
+        font-weight: bold;
+        border-bottom: 3px solid transparent;
+        &:hover{
+          border-color: black;
+        }
+      }
+    }
+    &__dropdown{
+      background-color: transparent;
+      border: none;
+      text-transform: none;
+      font-weight: bold;
+      border-bottom: 3px solid transparent;
+      &:hover{
+        border-color: black;
+      }
+    }
+    &__hamburger{
+      display: none;
     }
   }
 }

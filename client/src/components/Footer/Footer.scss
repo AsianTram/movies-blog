@@ -1,0 +1,30 @@
+@import '../../styles/variable';
+
+.footer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $secondary-color1;
+  color: $primary-color1;
+  &__links{
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    a {
+        font-size: x-large;
+        color: $primary-color1;
+        &:hover{
+          color: $primary-color2;
+        }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .footer{
+    &__links{
+      width: 25%;
+    }
+  }
+}

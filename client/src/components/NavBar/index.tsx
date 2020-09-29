@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import './NavBar.scss';
 
@@ -18,26 +18,35 @@ const UnauthRoute= ()=>{
     </div>
   )
 }
-const index = () => {
+
+const NavBar = () => {
+  const [isToggle, setToggle]= useState(false) 
+
   return (
     <nav className="navbar">
       <h3>MovCeb Blog</h3>
+      <div className="navbar__right">
       <div className="navbar__links">
         <p>Home</p>
         <button className="navbar__dropdown">Reviews </button>
         <p>Contact</p>
-        <UnauthRoute/>
       </div>
+      <UnauthRoute/>
       <div className="navbar__hamburger">
-        <button className="navbar__hamburger-button">
+        <button className="navbar__hamburger-button" onClick={()=>setToggle(!isToggle)}>
           <i className="fas fa-bars"></i>
         </button>
-        {/* <p>Home</p>
-        <p>Contact</p>
-        <UnauthRoute/> */}
+        {isToggle ? (
+          <div className="navbar__hamburger-toggle">
+            <p>Home</p>
+            <p>Contact</p>
+            <p>Reviews</p>
+          </div>
+        ): null}
+      </div>
       </div>
     </nav>
   )
 }
 
-export default index
+export default NavBar
