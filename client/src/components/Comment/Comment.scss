@@ -1,0 +1,21 @@
+@import '../../styles/variable';
+
+.comment{
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  &__author{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    img{
+      padding-right: 10px;
+    }
+  }
+}
+@media only screen and (min-width: 768px) {
+  .blogpost{
+   padding: 2em;
+  }
+}

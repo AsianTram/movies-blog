@@ -4,7 +4,7 @@ import './Footer.scss'
 
 const Footer = () => {
   return (
-    <div className="footer">
+    <footer className="footer">
       <strong>@MadebyTramNguyen</strong>
       <div className="footer__links">
         <p>Connect me:</p>
@@ -13,7 +13,7 @@ const Footer = () => {
         <a href="#"><i className="fa fa-google"></i></a>
         <a href="#"><i className="fa fa-github"></i></a>
       </div>
-    </div>
+    </footer>
   )
 }
 

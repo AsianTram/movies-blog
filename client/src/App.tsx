@@ -4,15 +4,18 @@ import './App.css';
 import NavBar from './components/NavBar/index'
 import Intro from './components/Intro/index'
 import Footer from './components/Footer/index';
-import BlogBar from './components/BlogBar/index';
+import SinglePost from './pages/SinglePost/SinglePost';
+
 
 
 function App() {
   return (
     <div className="App">
       <NavBar/>
-      {/* <Intro/> */}
-      <BlogBar/>
+      <main>
+        <SinglePost/>
+
+      </main>
       <Footer/>
     </div>
   );

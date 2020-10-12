@@ -1,0 +1,8 @@
+.App{
+  position: relative;
+  min-height: 100vh;
+  background: #E5E5E5;
+}
+main{
+  padding-bottom: 5em;
+}
