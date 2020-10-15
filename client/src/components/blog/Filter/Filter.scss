@@ -1,0 +1,66 @@
+@import '../../../styles/variable';
+.filterdesktop{
+display: none;
+}
+.filtermobile{
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  margin-right: 5em;
+  &__kinds{
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  &__sort{
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  button{
+    color: $accent2;
+    background-color: $primary-color2;
+    border-radius: 5%;
+    padding: 0.5em;
+    margin: 0.5em 0;
+    margin-top: 2em;
+  }
+  &__options{
+    background-color: white;
+    border: 1px solid $primary-color1;
+    padding: 1em;
+    position: absolute;
+    top: 10em;
+    z-index: 10;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+.filtermobile{
+  display: none;
+}
+.filterdesktop{
+  position: fixed;
+  top: 40%;
+  left: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 20%;
+  padding: 20px 10px;
+  background-color: white;
+}
+button{
+  border: 0;
+  background-color: transparent;
+}
+i{
+  color: $secondary-color1;
+  margin: 5px;
+}
+input{
+  margin-left: 10px;
+}
+}

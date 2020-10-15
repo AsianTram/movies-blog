@@ -10,8 +10,7 @@ const Like = () => {
         <i className="fa fa-thumbs-up"></i>
       </div>
       <div className="like__btn">
-        <i className="fa">&#xf087;</i>
-
+      <i className="far fa-thumbs-up"></i>
       </div>
     </div>
   )
