@@ -1,0 +1,16 @@
+@import '../../../styles/variable';
+
+.blogform{
+  width: 80%;
+  background-color: white;
+  margin: 2em auto;
+  padding: 2em;
+  textarea{
+    height: 300px;
+  }
+}
+@media only screen and (min-width: 768px) {
+.blogform{
+  width: 60%;
+}
+}
