@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {Link} from 'react-router-dom'
 
 import './NavBar.scss';
 
@@ -27,8 +28,9 @@ const NavBar = () => {
       <h3>MovCeb Blog</h3>
       <div className="navbar__right">
       <div className="navbar__links">
-        <p>Home</p>
-        <button className="navbar__dropdown">Reviews </button>
+        <Link to="/"><p>Home</p></Link>
+        <Link to="/posts"><p>Reviews</p></Link>
+        {/* <button className="navbar__dropdown">Reviews </button> */}
         <p>Contact</p>
       </div>
       <UnauthRoute/>
@@ -38,9 +40,9 @@ const NavBar = () => {
         </button>
         {isToggle ? (
           <div className="navbar__hamburger-toggle">
-            <p>Home</p>
+            <Link to="/"><p>Home</p></Link>
             <p>Contact</p>
-            <p>Reviews</p>
+            <Link to="/posts"><p>Reviews</p></Link>
           </div>
         ): null}
       </div>

@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+} from "react-router-dom";
 
 import './App.css';
 import NavBar from './components/layout/NavBar/index'
@@ -15,15 +19,34 @@ import Login from './components/user/Login/index';
 function App() {
   return (
     <div className="App">
-      <NavBar/>
-      <main>
-        <PostList/>
-        <BlogForm/>
-        <SignUp/>
-        <Login/>
-      </main>
-      <Footer/>
+      <Router>
+        <NavBar />
+        <main>
+          <Route exact path="/">
+            <Intro />
+          </Route>
+          <Route path="/posts/:id">
+            <SinglePost />
+          </Route>
+          <Route exact path="/posts">
+            <PostList/>
+          </Route>
+          
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/newpost">
+            <BlogForm />
+          </Route>
+        </main>
+        <Footer />
+      </Router>
+
     </div>
+
   );
 }
 
