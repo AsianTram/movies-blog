@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
 } from "react-router-dom";
-import { Provider } from 'react-redux'
+import { Provider} from 'react-redux'
 import { store } from './store'
 
 import './App.css';
@@ -15,6 +15,7 @@ import PostList from './pages/PostList/PostList';
 import BlogForm from './components/blog/BlogForm/index';
 import SignUp from './components/user/SignUp/index';
 import Login from './components/user/Login/index';
+import Alert from './components/layout/Alert';
 
 
 
@@ -26,6 +27,7 @@ function App() {
       <Router>
         <NavBar />
         <main>
+          <Alert/>
           <Route exact path="/">
             <Intro />
           </Route>

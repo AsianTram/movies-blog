@@ -1,19 +1,21 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 import './BlogBar.scss'
+import { Post } from '../../../types'
 
-const BlogBar = () => {
+const BlogBar: React.FC<{postInfo:Post}>= ({postInfo}) => {
   return (
     <div className="blogbar">
-      <h3>Some interesting title</h3>
+      <h3>{postInfo.name}</h3>
       <div className="blogbar__author">
-        <img src="https://via.placeholder.com/60/FF0000/FFFFFF"/>
-        <strong>Tram Nguyen</strong>
+        {postInfo.avatar ? (<img src={postInfo.avatar} alt="user avatar"/>): (<img src="https://via.placeholder.com/60/FF0000/FFFFFF" alt="user avatar"/>)}
+        <strong>{postInfo.username}</strong>
       </div>
       <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non tristique purus, sit amet porta metus. Sed ultricies nisi ipsum. Sed hendrerit nunc quis dui fringilla, vitae viverra mi tristique.
+        {postInfo.content}
       </p>
-      <button>Read more</button>
+      <Link to={`/posts/${postInfo._id}`}><button>Read more</button></Link>
     </div>
   )
 }

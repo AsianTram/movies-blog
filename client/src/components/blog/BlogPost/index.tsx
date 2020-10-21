@@ -1,18 +1,24 @@
-import React from 'react'
+import React from 'react';
 
 import './BlogPost.scss'
+import { Post } from '../../../types'
 
-const BlogPost = () => {
+const BlogPost: React.FC<{postInfo: Post}> = ({postInfo}) => {
+  
   return (
     <div className="blogpost">
-      <h3>My first movie review</h3>
+      <h3>{postInfo?.name}</h3>
       <div className="blogpost__author">
-        <img src="https://via.placeholder.com/60/FF0000/FFFFFF"/>
-        <strong>Tram Nguyen</strong>
+        {postInfo?.avatar ? (<img src={postInfo.avatar} alt='user avatar'/>) : (        <img src="https://via.placeholder.com/60/FF0000/FFFFFF" alt='user avatar'/>)}
+        <strong>{postInfo?.username}</strong>
       </div>
-      <img className="blogpost__photo" src="https://via.placeholder.com/300/000000"/>
+      {
+        postInfo?.picture ? (
+          <img className="blogpost__photo" src={postInfo.picture} alt='featured pic'/>
+        ): null
+      }
       <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non tristique purus, sit amet porta metus. Sed ultricies nisi ipsum. Sed hendrerit nunc quis dui fringilla, vitae viverra mi tristique.
+        {postInfo?.content}
       </p>
     </div>
   )

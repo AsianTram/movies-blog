@@ -2,9 +2,9 @@ export const GET_POSTS_PENDING='GET_POSTS_PENDING'
 export const GET_POSTS_SUCCESS='GET_POSTS_SUCCESS'
 export const GET_POSTS_FAILED='GET_POSTS_FAILED'
 
-export const GET_POSTS_BY_ID_PENDING='GET_POSTS_BY_ID_PENDING'
-export const GET_POSTS_BY_ID_SUCCESS='GET_POSTS_BY_ID_SUCCESS'
-export const GET_POSTS_BY_ID_FAILED='GET_POSTS_BY_ID_FAILED'
+export const GET_POST_BY_ID_PENDING='GET_POST_BY_ID_PENDING'
+export const GET_POST_BY_ID_SUCCESS='GET_POST_BY_ID_SUCCESS'
+export const GET_POST_BY_ID_FAILED='GET_POST_BY_ID_FAILED'
 
 export const SET_ALERT='SET_ALERT'
 export const SET_ALERT_SUCCESS='SET_ALERT_SUCCESS'
@@ -35,6 +35,19 @@ export type getAllPostsFailedAction={
   payload: Error
 }
 
+export type getPostByIdAction={
+  type: typeof GET_POST_BY_ID_PENDING,
+  payload: string
+}
+export type getPostByIdSuccessAction={
+  type: typeof GET_POST_BY_ID_SUCCESS,
+  payload: Post
+}
+export type getPostByIdFailedAction={
+  type: typeof GET_POST_BY_ID_FAILED,
+  payload: Error
+}
+
 export interface AlertState{
   alerts: Alert[]
 }
@@ -52,7 +65,7 @@ export interface AppState{
 }
 
 export interface Post{
-  id: string,
+  _id: string,
   user: string, 
   username: string,
   avatar?:string,
@@ -60,8 +73,8 @@ export interface Post{
   name:string,
   type: PostType,
   content: string,
-  comments: Comment[],
-  likes: Like[],
+  comments: CommentObject[],
+  likes: LikeObject[],
   followed: {
     user: string []
   },
@@ -72,19 +85,19 @@ export enum PostType {
   celebrity= 'celebrity',
   all= 'all'
 }
-export interface Comment {
+export interface CommentObject {
   user: string, 
   name: string,
   avatar?: string,
   value: string
 }
-export interface Like {
+export interface LikeObject {
   user: string, 
   name: string,
   avatar?: string
 }
 export interface User {
-  id:string,
+  _id:string,
   name: string,
   email: string,
   password: string,
@@ -94,7 +107,7 @@ export interface User {
 }
 
 export interface Profile {
-  id: string,
+  _id: string,
   user: string,
   name: string,
   bio?: string,
