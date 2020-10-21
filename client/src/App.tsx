@@ -3,6 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
 } from "react-router-dom";
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 import './App.css';
 import NavBar from './components/layout/NavBar/index'
@@ -18,6 +20,8 @@ import Login from './components/user/Login/index';
 
 function App() {
   return (
+    <Provider store={store}>
+
     <div className="App">
       <Router>
         <NavBar />
@@ -46,7 +50,7 @@ function App() {
       </Router>
 
     </div>
-
+</Provider>
   );
 }
 
