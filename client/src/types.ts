@@ -10,6 +10,17 @@ export const SET_ALERT='SET_ALERT'
 export const SET_ALERT_SUCCESS='SET_ALERT_SUCCESS'
 export const REMOVE_ALERT='REMOVE_ALERT'
 
+export const LOGIN='LOGIN'
+export const LOGIN_SUCCESS='LOGIN_SUCCESS'
+export const LOGIN_FAILED='LOGIN_FAILED'
+
+export const SIGNUP='SIGNUP'
+export const SIGNUP_SUCCESS='SIGNUP_SUCCESS'
+export const SIGNUP_FAILED='SIGNUP_FAILED'
+
+export const LOGOUT='LOGOUT'
+
+
 export type setAlertAction={
   type: typeof SET_ALERT,
   payload: AlertForm
@@ -48,6 +59,36 @@ export type getPostByIdFailedAction={
   payload: Error
 }
 
+export type loginAction={
+  type: typeof LOGIN,
+  payload: LoginForm
+}
+export type loginSuccessAction={
+  type: typeof LOGIN_SUCCESS,
+  payload: string
+}
+export type loginFailedAction={
+  type: typeof LOGIN_FAILED,
+  payload: Error
+}
+
+export type signupAction={
+  type: typeof SIGNUP,
+  payload: SignUpForm
+}
+export type signupSuccessAction={
+  type: typeof SIGNUP_SUCCESS,
+  payload: string
+}
+export type signupFailedAction={
+  type: typeof SIGNUP_FAILED,
+  payload: Error
+}
+
+export type logoutAction={
+  type: typeof LOGOUT
+}
+
 export interface AlertState{
   alerts: Alert[]
 }
@@ -58,10 +99,18 @@ export interface PostsState{
   pending: boolean,
   error: Error| null;
 }
+export interface UsersState{
+  user: User| null,
+  token: string | null,
+  isAuthenticated: boolean,
+  error: Error | null,
+  pending: boolean
+}
 
 export interface AppState{
   alert: AlertState,
-  post: PostsState
+  post: PostsState,
+  user: UsersState
 }
 
 export interface Post{
@@ -139,4 +188,13 @@ export interface AlertForm{
   alertType: 'success' | 'danger',
   statusCode: number,
   message: string
+}
+export interface LoginForm{
+  email: string,
+  password: string
+}
+export interface SignUpForm{
+  name: string,
+  email: string,
+  password: string
 }

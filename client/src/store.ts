@@ -16,6 +16,13 @@ const initialState:AppState = {
   },
   alert:{
     alerts:[]
+  },
+  user: {
+    user:null,
+    isAuthenticated:false,
+    token: localStorage.getItem('token'),
+    pending: false,
+    error: null
   }
 }
 
