@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   BrowserRouter as Router,
   Route,
 } from "react-router-dom";
-import { Provider} from 'react-redux'
-import { store } from './store'
+import { useDispatch} from 'react-redux'
 
 import './App.css';
 import NavBar from './components/layout/NavBar/index'
@@ -16,13 +15,23 @@ import BlogForm from './components/blog/BlogForm/index';
 import SignUp from './components/user/SignUp/index';
 import Login from './components/user/Login/index';
 import Alert from './components/layout/Alert';
+import setTokenToHeader from './utils/setTokenToHeader';
+import { loadUser } from './redux/actions/users';
 
 
 
 function App() {
-  return (
-    <Provider store={store}>
+  const dispatch = useDispatch()
 
+  if (localStorage.token) {
+    setTokenToHeader(localStorage.token)
+    dispatch(loadUser())
+  }
+
+  useEffect(() => {
+    dispatch(loadUser())
+  }, [dispatch])
+  return (
     <div className="App">
       <Router>
         <NavBar />
@@ -52,7 +61,6 @@ function App() {
       </Router>
 
     </div>
-</Provider>
   );
 }
 

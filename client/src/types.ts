@@ -18,6 +18,10 @@ export const SIGNUP='SIGNUP'
 export const SIGNUP_SUCCESS='SIGNUP_SUCCESS'
 export const SIGNUP_FAILED='SIGNUP_FAILED'
 
+export const LOAD_USER='LOAD_USER'
+export const LOAD_USER_SUCCESS='LOAD_USER_SUCCESS'
+export const LOAD_USER_FAILED='LOAD_USER_FAILED'
+
 export const LOGOUT='LOGOUT'
 
 
@@ -84,6 +88,19 @@ export type signupFailedAction={
   type: typeof SIGNUP_FAILED,
   payload: Error
 }
+
+export type loadUserAction={
+  type: typeof LOAD_USER
+}
+export type loadUserSuccessAction={
+  type: typeof LOAD_USER_SUCCESS,
+  payload: User
+}
+export type loadUserFailedAction={
+  type: typeof LOAD_USER_FAILED,
+  payload: Error
+}
+
 
 export type logoutAction={
   type: typeof LOGOUT

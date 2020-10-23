@@ -1,4 +1,4 @@
-import { LoginForm, LOGIN, LOGIN_SUCCESS, LOGIN_FAILED, SignUpForm, SIGNUP_SUCCESS, SIGNUP_FAILED,Error, LOGOUT } from "../../types";
+import { LoginForm, LOGIN, LOGIN_SUCCESS, LOGIN_FAILED, SignUpForm, SIGNUP_SUCCESS, SIGNUP_FAILED,Error, LOGOUT, LOAD_USER, User, LOAD_USER_SUCCESS, LOAD_USER_FAILED } from "../../types";
 
 export function login(data: LoginForm){
   return {
@@ -37,6 +37,24 @@ export function signupFailed(e: Error){
   }
 }
 
+export function loadUser(){
+  return {
+    type: LOAD_USER
+  }
+}
+
+export function loadUserSuccess(data: User){
+  return {
+    type: LOAD_USER_SUCCESS,
+    payload: data
+  }
+}
+export function loadUserFailed(e: Error){
+  return {
+    type: LOAD_USER_FAILED,
+    payload: e
+  }
+}
 export function logout(){
   return {
     type: LOGOUT

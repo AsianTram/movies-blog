@@ -1,12 +1,19 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
 
 import './NavBar.scss';
+import { AppState } from '../../../types';
+import { logout } from '../../../redux/actions/users';
 
 const AuthRoute= ()=>{
+  const dispatch=useDispatch()
+  const logoutHandler=()=>{
+    dispatch(logout())
+  }
   return (
     <div className="navbar__auth">
-      <button>Firstname Lastname</button>
+      <button onClick={()=>logoutHandler()}>Logout</button>
     </div>
   )
 }
@@ -14,8 +21,8 @@ const AuthRoute= ()=>{
 const UnauthRoute= ()=>{
   return (
     <div className="navbar__unauth">
-      <button>Login</button>
-      <button>Signup</button>
+      <Link to="/login"><button>Login</button></Link>
+      <Link to="/signup"><button>Signup</button></Link>
     </div>
   )
 }
@@ -23,6 +30,8 @@ const UnauthRoute= ()=>{
 const NavBar = () => {
   const [isToggle, setToggle]= useState(false) 
 
+  const isAuthenticated= useSelector((state: AppState)=> state.user.isAuthenticated)
+console.log(isAuthenticated)
   return (
     <nav className="navbar">
       <h3>MovCeb Blog</h3>
@@ -33,7 +42,7 @@ const NavBar = () => {
         {/* <button className="navbar__dropdown">Reviews </button> */}
         <p>Contact</p>
       </div>
-      <UnauthRoute/>
+      {isAuthenticated ? (<AuthRoute/>): (<UnauthRoute/>)}
       <div className="navbar__hamburger">
         <button className="navbar__hamburger-button" onClick={()=>setToggle(!isToggle)}>
           <i className="fas fa-bars"></i>

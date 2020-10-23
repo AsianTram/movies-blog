@@ -1,12 +1,12 @@
 import { takeEvery, call, put } from "redux-saga/effects";
-import { LOGIN, SIGNUP } from "../../types";
+import { LOGIN, SIGNUP, signupAction, loginAction, LOAD_USER } from "../../types";
 import axios from "axios";
-import { loginSuccess, loginFailed, signupSuccess, signupFailed } from "../actions/users";
+import { loginSuccess, loginFailed, signupSuccess, signupFailed, loadUserFailed, loadUserSuccess} from "../actions/users";
 import { setAlert } from "../actions";
 
-function* login(){
+function* login(action:loginAction){
   try {
-    const response= yield call(()=> axios.post('/api/user/login'))
+    const response= yield call(()=> axios.post('/api/user/login', action.payload))
     if(response){
       yield put(loginSuccess(response.data))
       yield put(setAlert({
@@ -27,16 +27,16 @@ function* login(){
       }))
     }
   } catch (error) {
-    yield put(loginFailed(error))
+    yield put(loginFailed(error.response.data))
     yield put(setAlert({
       alertType: 'danger',
-      ...error
+      ...error.response.data
     }))
   }
 }
-function* signup(){
+function* signup(action:signupAction){
   try {
-    const response= yield call(()=> axios.post('/api/user/signup'))
+    const response= yield call(()=> axios.post('/api/user/signup', action.payload))
     if(response){
       yield put(signupSuccess(response.data))
       yield put(setAlert({
@@ -44,6 +44,7 @@ function* signup(){
         message: 'Successfully create a new account',
         statusCode: 201
       }))
+
     }
     else{
       yield put(signupFailed({
@@ -57,15 +58,33 @@ function* signup(){
       }))
     }
   } catch (error) {
-    yield put(signupFailed(error))
+    yield put(signupFailed(error.response.data))
     yield put(setAlert({
       alertType: 'danger',
-      ...error
+      ...error.response.data
     }))
+  }
+}
+
+function* loadUser(){
+  try {
+    const response= yield call(()=>axios.get('/api/user/'))
+    if(response){
+      yield put(loadUserSuccess(response.data))
+    }
+    else{
+      yield put(loadUserFailed({
+        message: 'Cannot make the request',
+        statusCode: 500
+      }))
+    }
+  } catch (error) {
+    yield put(loadUserFailed(error.response.data))
   }
 }
 
 export default [
   takeEvery(LOGIN, login),
-  takeEvery(SIGNUP, signup)
+  takeEvery(SIGNUP, signup),
+  takeEvery(LOAD_USER, loadUser)
 ]

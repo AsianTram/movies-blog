@@ -6,7 +6,9 @@ const config = require('config');
 const {check, validationResult } = require('express-validator');
 
 const User = require('../../models/User.js');
-const { BadRequestError, UnauthorizedError, InternalServerError } = require('../../helpers/apiError.js');
+const { BadRequestError, UnauthorizedError} = require('../../helpers/apiError.js');
+const auth= require('../../middleware/auth');
+
 
 const router = express.Router();
 
@@ -66,5 +68,12 @@ router.post('/login',[check('email','Please give the email').not().isEmpty(), ch
         next(error)
     }
 })
-
+router.get('/', auth, async(req,res)=>{
+    try {
+        const user=await User.findById(req.user.id).select("-password");
+        res.json(user)
+    } catch (error) {
+        next(error)
+    }
+})
 module.exports=router;

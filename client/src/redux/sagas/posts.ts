@@ -28,12 +28,12 @@ function* getAllPosts() {
     }
   } catch (error) {
     yield put(
-      getAllPostsError(error)
+      getAllPostsError(error.response.data)
     )
     yield put(
       setAlert({
         alertType: 'danger',
-        ...error
+        ...error.response.data
       })
     )
   }
@@ -63,12 +63,12 @@ function* getPostById(action: getPostByIdAction){
     }
   } catch (error) {
     yield put(
-      getPostByIdError(error)
+      getPostByIdError(error.response.data)
     )
     yield put(
       setAlert({
         alertType: 'danger',
-        ...error
+        ...error.response.data
       })
     )
   }
