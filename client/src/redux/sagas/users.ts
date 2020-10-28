@@ -1,7 +1,7 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import { LOGIN, SIGNUP, signupAction, loginAction, LOAD_USER } from "../../types";
 import axios from "axios";
-import { loginSuccess, loginFailed, signupSuccess, signupFailed, loadUserFailed, loadUserSuccess} from "../actions/users";
+import { loginSuccess, loginFailed, signupSuccess, signupFailed, loadUserFailed, loadUserSuccess, loadUser as loadUserAction} from "../actions/users";
 import { setAlert } from "../actions";
 
 function* login(action:loginAction){
@@ -14,6 +14,7 @@ function* login(action:loginAction){
         message: 'Successfully login',
         statusCode: 201
       }))
+      yield put(loadUserAction())
     }
     else{
       yield put(loginFailed({
@@ -44,6 +45,7 @@ function* signup(action:signupAction){
         message: 'Successfully create a new account',
         statusCode: 201
       }))
+      yield put(loadUserAction())
 
     }
     else{
