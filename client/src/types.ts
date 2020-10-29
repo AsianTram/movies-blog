@@ -6,6 +6,10 @@ export const GET_POST_BY_ID_PENDING='GET_POST_BY_ID_PENDING'
 export const GET_POST_BY_ID_SUCCESS='GET_POST_BY_ID_SUCCESS'
 export const GET_POST_BY_ID_FAILED='GET_POST_BY_ID_FAILED'
 
+export const CREATE_POST_PENDING='CREATE_POST_PENDING'
+export const CREATE_POST_SUCCESS='CREATE_POST_SUCCESS'
+export const CREATE_POST_FAILED='CREATE_POST_FAILED'
+
 export const SET_ALERT='SET_ALERT'
 export const SET_ALERT_SUCCESS='SET_ALERT_SUCCESS'
 export const REMOVE_ALERT='REMOVE_ALERT'
@@ -60,6 +64,19 @@ export type getPostByIdSuccessAction={
 }
 export type getPostByIdFailedAction={
   type: typeof GET_POST_BY_ID_FAILED,
+  payload: Error
+}
+
+export type createPostAction={
+  type: typeof CREATE_POST_PENDING,
+  payload: PostForm
+}
+export type createPostSuccessAction={
+  type: typeof CREATE_POST_SUCCESS,
+  payload: Post
+}
+export type createPostFailedAction={
+  type: typeof CREATE_POST_FAILED,
   payload: Error
 }
 
@@ -161,6 +178,12 @@ export interface LikeObject {
   user: string, 
   name: string,
   avatar?: string
+}
+export interface PostForm{
+  picture:string,
+  name:string,
+  type: PostType,
+  content: string,
 }
 export interface User {
   _id:string,

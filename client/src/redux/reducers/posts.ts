@@ -1,18 +1,20 @@
-import { getAllPostsSuccessAction, getAllPostsFailedAction, PostsState, GET_POSTS_SUCCESS, getAllPostsAction, GET_POST_BY_ID_PENDING, GET_POSTS_PENDING, GET_POSTS_FAILED, getPostByIdAction, GET_POST_BY_ID_FAILED, GET_POST_BY_ID_SUCCESS, getPostByIdFailedAction, getPostByIdSuccessAction } from "../../types";
+import { getAllPostsSuccessAction, getAllPostsFailedAction, PostsState, GET_POSTS_SUCCESS, getAllPostsAction, GET_POST_BY_ID_PENDING, GET_POSTS_PENDING, GET_POSTS_FAILED, getPostByIdAction, GET_POST_BY_ID_FAILED, GET_POST_BY_ID_SUCCESS, getPostByIdFailedAction, getPostByIdSuccessAction, createPostAction, createPostSuccessAction, createPostFailedAction, CREATE_POST_FAILED, CREATE_POST_PENDING, CREATE_POST_SUCCESS, Post } from "../../types";
 
-const initialState: PostsState= {
+const initialState:PostsState = {
   posts: [],
   currentPost: null,
-  storedPosts:[],
+  storedPosts: [],
   error: null,
   pending: false
 }
-export default function post(state=initialState, action: getAllPostsAction| getAllPostsSuccessAction | getAllPostsFailedAction 
-                                                        | getPostByIdAction| getPostByIdSuccessAction| getPostByIdFailedAction
-){
-  switch(action.type){
+export default function post(state = initialState, action: getAllPostsAction | getAllPostsSuccessAction | getAllPostsFailedAction
+  | getPostByIdAction | getPostByIdSuccessAction | getPostByIdFailedAction
+  | createPostAction | createPostSuccessAction | createPostFailedAction
+) {
+  switch (action.type) {
     case GET_POSTS_PENDING:
     case GET_POST_BY_ID_PENDING:
+    case CREATE_POST_PENDING:
       return {
         ...state,
         pending: true
@@ -30,10 +32,18 @@ export default function post(state=initialState, action: getAllPostsAction| getA
         pending: false,
         currentPost: action.payload,
         error: null
-        
+      }
+    case CREATE_POST_SUCCESS:
+      return {
+        ...state,
+        posts: [...state.posts, action.payload],
+        pending: false,
+        currentPost: action.payload,
+        error: null
       }
     case GET_POSTS_FAILED:
     case GET_POST_BY_ID_FAILED:
+    case CREATE_POST_FAILED:
       return {
         ...state,
         pending: false,

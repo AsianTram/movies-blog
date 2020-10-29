@@ -6,7 +6,11 @@ Post,
 Error,
 GET_POST_BY_ID_PENDING,
 GET_POST_BY_ID_SUCCESS,
-GET_POST_BY_ID_FAILED
+GET_POST_BY_ID_FAILED,
+PostForm,
+CREATE_POST_PENDING,
+CREATE_POST_SUCCESS,
+CREATE_POST_FAILED
 } from '../../types'
 
 export function getAllPostsPending(){
@@ -42,6 +46,24 @@ export function getPostByIdSuccess(data:Post){
 export function getPostByIdError(e:Error){
   return {
     type: GET_POST_BY_ID_FAILED,
+    payload: e
+  }
+}
+export function createPost(data: PostForm){
+  return {
+    type: CREATE_POST_PENDING,
+    payload: data
+  }
+}
+export function createPostSuccess(data: Post){
+  return {
+    type: CREATE_POST_SUCCESS,
+    payload:data
+  }
+}
+export function createPostFailed(e: Error){
+  return {
+    type: CREATE_POST_FAILED,
     payload: e
   }
 }

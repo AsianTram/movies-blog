@@ -1,8 +1,8 @@
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects'
 import axios from 'axios'
 
-import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING } from '../../types'
-import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError} from '../actions/posts'
+import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, Post } from '../../types'
+import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess} from '../actions/posts'
 import { setAlert } from '../actions/alert'
 
 function* getAllPosts() {
@@ -73,7 +73,48 @@ function* getPostById(action: getPostByIdAction){
     )
   }
 }
+function* createAPost(action:createPostAction){
+  try {
+    const response= yield call(()=>axios.post('/api/post/', action.payload))
+    if(response){
+      yield put(createPostSuccess(response.data))
+      yield put(
+        setAlert({
+          alertType: 'success',
+          statusCode: 200,
+          message: 'Successfully save the post',
+        })
+      )
+    }
+    else {
+      yield put(
+        createPostFailed({
+          statusCode: 500,
+          message: 'Cannot save the post',
+        })
+      )
+      yield put(
+        setAlert({
+          alertType: 'danger',
+          statusCode: 500,
+          message: 'Cannot save the post',
+        })
+      )
+    }
+  } catch (error) {
+    yield put(
+      createPostFailed(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
 export default [
   takeLatest(GET_POSTS_PENDING, getAllPosts),
-  takeEvery(GET_POST_BY_ID_PENDING, getPostById)
+  takeEvery(GET_POST_BY_ID_PENDING, getPostById),
+  takeEvery(CREATE_POST_PENDING, createAPost)
 ]
