@@ -10,7 +10,10 @@ GET_POST_BY_ID_FAILED,
 PostForm,
 CREATE_POST_PENDING,
 CREATE_POST_SUCCESS,
-CREATE_POST_FAILED
+CREATE_POST_FAILED,
+UPDATE_POST_PENDING,
+UPDATE_POST_SUCCESS,
+UPDATE_POST_FAILED
 } from '../../types'
 
 export function getAllPostsPending(){
@@ -64,6 +67,25 @@ export function createPostSuccess(data: Post){
 export function createPostFailed(e: Error){
   return {
     type: CREATE_POST_FAILED,
+    payload: e
+  }
+}
+
+export function updatePost(data: PostForm){
+  return {
+    type: UPDATE_POST_PENDING,
+    payload: data
+  }
+}
+export function updatePostSuccess(data: Post){
+  return {
+    type: UPDATE_POST_SUCCESS,
+    payload:data
+  }
+}
+export function updatePostFailed(e: Error){
+  return {
+    type: UPDATE_POST_FAILED,
     payload: e
   }
 }

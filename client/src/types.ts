@@ -10,6 +10,10 @@ export const CREATE_POST_PENDING='CREATE_POST_PENDING'
 export const CREATE_POST_SUCCESS='CREATE_POST_SUCCESS'
 export const CREATE_POST_FAILED='CREATE_POST_FAILED'
 
+export const UPDATE_POST_PENDING='UPDATE_POST_PENDING'
+export const UPDATE_POST_SUCCESS='UPDATE_POST_SUCCESS'
+export const UPDATE_POST_FAILED='UPDATE_POST_FAILED'
+
 export const SET_ALERT='SET_ALERT'
 export const SET_ALERT_SUCCESS='SET_ALERT_SUCCESS'
 export const REMOVE_ALERT='REMOVE_ALERT'
@@ -77,6 +81,19 @@ export type createPostSuccessAction={
 }
 export type createPostFailedAction={
   type: typeof CREATE_POST_FAILED,
+  payload: Error
+}
+
+export type updatePostAction={
+  type: typeof UPDATE_POST_PENDING,
+  payload: PostForm
+}
+export type updatePostSuccessAction={
+  type: typeof UPDATE_POST_SUCCESS,
+  payload: Post
+}
+export type updatePostFailedAction={
+  type: typeof UPDATE_POST_FAILED,
   payload: Error
 }
 

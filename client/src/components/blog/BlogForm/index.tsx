@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
 
 import './BlogForm.scss';
-import { createPost } from '../../../redux/actions';
+import { createPost } from '../../../redux/actions/posts';
 import { PostType } from '../../../types';
 
 const BlogForm = () => {
@@ -13,12 +13,7 @@ const BlogForm = () => {
   const dispatch = useDispatch()
 
   const submitHandler=()=>{
-    console.log(type)
-    console.log(name)
-    console.log(picture)
-    console.log(content)
-
-    // dispatch(createPost({type, name, picture, content}))
+    dispatch(createPost({type, name, picture, content}))
   }
 
   return (
@@ -53,7 +48,7 @@ const BlogForm = () => {
         </div>
         <div className="form-group">
           <label htmlFor="picture">Picture Link</label>
-          <input type="text" className="form-control" id="picture" required onChange={(e)=>{setPicture(e.target.value)}}/>
+          <input type="text" className="form-control" id="picture" onChange={(e)=>{setPicture(e.target.value)}}/>
         </div>
         <div className="form-group">
           <label htmlFor="content">Content</label>
