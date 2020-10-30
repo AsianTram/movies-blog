@@ -1,8 +1,8 @@
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects'
 import axios from 'axios'
 
-import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, Post, updatePostAction, UPDATE_POST_PENDING } from '../../types'
-import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess, updatePostSuccess, updatePostFailed} from '../actions/posts'
+import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, updatePostAction, UPDATE_POST_PENDING, deletePostByIdAction, DELETE_POST_BY_ID_PENDING } from '../../types'
+import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess, updatePostSuccess, updatePostFailed, deletePostByIdSuccess, deletePostByIdError} from '../actions/posts'
 import { setAlert } from '../actions/alert'
 
 function* getAllPosts() {
@@ -154,9 +154,49 @@ function* updateAPost(action:updatePostAction){
     )
   }
 }
+function* deleteAPost(action:deletePostByIdAction){
+  try {
+    const response= yield call(()=> axios.delete(`/api/post/${action.payload}`))
+    if(response){
+      yield put(deletePostByIdSuccess(response.data))
+      yield put(
+        setAlert({
+          alertType: 'success',
+          statusCode: 200,
+          message: response.data,
+        })
+      )
+    }
+    else{
+      yield put(
+        deletePostByIdError({
+          statusCode: 500,
+          message:'Internal Server Error'
+        }))
+      yield put(
+        setAlert({
+          alertType: 'success',
+          statusCode: 500,
+          message: 'Internal Server Error',
+        })
+      )
+    }
+  } catch (error) {
+    yield put(
+      deletePostByIdError(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
 export default [
   takeLatest(GET_POSTS_PENDING, getAllPosts),
   takeEvery(GET_POST_BY_ID_PENDING, getPostById),
   takeEvery(CREATE_POST_PENDING, createAPost),
-  takeEvery(UPDATE_POST_PENDING, updateAPost)
+  takeEvery(UPDATE_POST_PENDING, updateAPost),
+  takeLatest(DELETE_POST_BY_ID_PENDING, deleteAPost)
 ]

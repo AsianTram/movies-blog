@@ -29,10 +29,6 @@ const BlogUpdate = () => {
   }
   }, [currentPost])
   const submitHandler=()=>{
-    console.log(name)
-    console.log(type)
-    console.log(content)
-
     dispatch(updatePost({id, type, name, picture, content}))
   }
 

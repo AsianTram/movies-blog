@@ -14,7 +14,10 @@ CREATE_POST_FAILED,
 UPDATE_POST_PENDING,
 UPDATE_POST_SUCCESS,
 UPDATE_POST_FAILED,
-PostUpdateForm
+PostUpdateForm,
+DELETE_POST_BY_ID_PENDING,
+DELETE_POST_BY_ID_SUCCESS,
+DELETE_POST_BY_ID_FAILED
 } from '../../types'
 
 export function getAllPostsPending(){
@@ -87,6 +90,24 @@ export function updatePostSuccess(data: Post){
 export function updatePostFailed(e: Error){
   return {
     type: UPDATE_POST_FAILED,
+    payload: e
+  }
+}
+export function deletePostByIdPending(id:string){
+  return {
+    type: DELETE_POST_BY_ID_PENDING,
+    payload: id
+  }
+}
+export function deletePostByIdSuccess(data:string){
+  return {
+    type: DELETE_POST_BY_ID_SUCCESS,
+    payload: data
+  }
+}
+export function deletePostByIdError(e:Error){
+  return {
+    type: DELETE_POST_BY_ID_FAILED,
     payload: e
   }
 }

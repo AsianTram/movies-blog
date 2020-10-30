@@ -1,20 +1,27 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import './BlogPost.scss'
 import { Post, AppState } from '../../../types'
+import { deletePostByIdPending } from '../../../redux/actions/posts';
 
 const BlogPost: React.FC<{ postInfo: Post }> = ({ postInfo }) => {
   const userId = useSelector((state: AppState) => state.user.user?._id)
-
+  const dispatch = useDispatch()
+  const deleteAPost=(id:string)=>{
+    const res=window.confirm('Are you sure that you want to delete this post? This cannot be undone!')
+    if(res){
+      dispatch(deletePostByIdPending(id))
+    }
+  }
   return (
     <div className="blogpost">
 
       {userId && userId === postInfo.user ? (
         <div className="blogpost__handlers">
           <Link to={`/updatepost/${postInfo._id}`}><i className="fas fa-edit"></i></Link>
-          <button><i className="fas fa-trash"></i></button>
+          <button onClick={()=> deleteAPost(postInfo._id)}><i className="fas fa-trash"></i></button>
         </div>
       ) : null}
 

@@ -14,6 +14,11 @@ export const UPDATE_POST_PENDING='UPDATE_POST_PENDING'
 export const UPDATE_POST_SUCCESS='UPDATE_POST_SUCCESS'
 export const UPDATE_POST_FAILED='UPDATE_POST_FAILED'
 
+export const DELETE_POST_BY_ID_PENDING='DELETE_POST_BY_ID_PENDING'
+export const DELETE_POST_BY_ID_SUCCESS='DELETE_POST_BY_ID_SUCCESS'
+export const DELETE_POST_BY_ID_FAILED='DELETE_POST_BY_ID_FAILED'
+
+
 export const SET_ALERT='SET_ALERT'
 export const SET_ALERT_SUCCESS='SET_ALERT_SUCCESS'
 export const REMOVE_ALERT='REMOVE_ALERT'
@@ -68,6 +73,19 @@ export type getPostByIdSuccessAction={
 }
 export type getPostByIdFailedAction={
   type: typeof GET_POST_BY_ID_FAILED,
+  payload: Error
+}
+
+export type deletePostByIdAction={
+  type: typeof DELETE_POST_BY_ID_PENDING,
+  payload: string
+}
+export type deletePostByIdSuccessAction={
+  type: typeof DELETE_POST_BY_ID_SUCCESS,
+  payload: string
+}
+export type deletePostByIdFailedAction={
+  type: typeof DELETE_POST_BY_ID_FAILED,
   payload: Error
 }
 
