@@ -17,6 +17,7 @@ import Login from './components/user/Login/index';
 import Alert from './components/layout/Alert';
 import setTokenToHeader from './utils/setTokenToHeader';
 import { loadUser } from './redux/actions/users';
+import BlogUpdate from './components/blog/BlogUpdate';
 
 
 
@@ -55,6 +56,9 @@ function App() {
           </Route>
           <Route path="/newpost">
             <BlogForm />
+          </Route>
+          <Route path="/updatepost/:id">
+            <BlogUpdate />
           </Route>
         </main>
         <Footer />

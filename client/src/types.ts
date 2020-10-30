@@ -86,7 +86,7 @@ export type createPostFailedAction={
 
 export type updatePostAction={
   type: typeof UPDATE_POST_PENDING,
-  payload: PostForm
+  payload: PostUpdateForm
 }
 export type updatePostSuccessAction={
   type: typeof UPDATE_POST_SUCCESS,
@@ -197,6 +197,13 @@ export interface LikeObject {
   avatar?: string
 }
 export interface PostForm{
+  picture:string,
+  name:string,
+  type: PostType,
+  content: string,
+}
+export interface PostUpdateForm{
+  id:string,
   picture:string,
   name:string,
   type: PostType,

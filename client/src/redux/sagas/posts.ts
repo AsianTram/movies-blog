@@ -1,8 +1,8 @@
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects'
 import axios from 'axios'
 
-import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, Post } from '../../types'
-import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess} from '../actions/posts'
+import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, Post, updatePostAction, UPDATE_POST_PENDING } from '../../types'
+import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess, updatePostSuccess, updatePostFailed} from '../actions/posts'
 import { setAlert } from '../actions/alert'
 
 function* getAllPosts() {
@@ -113,8 +113,50 @@ function* createAPost(action:createPostAction){
     )
   }
 }
+
+function* updateAPost(action:updatePostAction){
+  try {
+    const response= yield call(()=>axios.put(`/api/post/${action.payload.id}`, action.payload))
+    if(response){
+      yield put(updatePostSuccess(response.data))
+      yield put(
+        setAlert({
+          alertType: 'success',
+          statusCode: 200,
+          message: 'Successfully update the post',
+        })
+      )
+    }
+    else {
+      yield put(
+        updatePostFailed({
+          statusCode: 500,
+          message: 'Cannot save the post',
+        })
+      )
+      yield put(
+        setAlert({
+          alertType: 'danger',
+          statusCode: 500,
+          message: 'Cannot save the post',
+        })
+      )
+    }
+  } catch (error) {
+    yield put(
+      updatePostFailed(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
 export default [
   takeLatest(GET_POSTS_PENDING, getAllPosts),
   takeEvery(GET_POST_BY_ID_PENDING, getPostById),
-  takeEvery(CREATE_POST_PENDING, createAPost)
+  takeEvery(CREATE_POST_PENDING, createAPost),
+  takeEvery(UPDATE_POST_PENDING, updateAPost)
 ]

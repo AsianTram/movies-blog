@@ -13,7 +13,8 @@ CREATE_POST_SUCCESS,
 CREATE_POST_FAILED,
 UPDATE_POST_PENDING,
 UPDATE_POST_SUCCESS,
-UPDATE_POST_FAILED
+UPDATE_POST_FAILED,
+PostUpdateForm
 } from '../../types'
 
 export function getAllPostsPending(){
@@ -71,7 +72,7 @@ export function createPostFailed(e: Error){
   }
 }
 
-export function updatePost(data: PostForm){
+export function updatePost(data: PostUpdateForm){
   return {
     type: UPDATE_POST_PENDING,
     payload: data
