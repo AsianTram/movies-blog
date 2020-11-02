@@ -18,6 +18,14 @@ export const DELETE_POST_BY_ID_PENDING='DELETE_POST_BY_ID_PENDING'
 export const DELETE_POST_BY_ID_SUCCESS='DELETE_POST_BY_ID_SUCCESS'
 export const DELETE_POST_BY_ID_FAILED='DELETE_POST_BY_ID_FAILED'
 
+export const LIKE_POST_BY_ID_PENDING='LIKE_POST_BY_ID_PENDING'
+export const LIKE_POST_BY_ID_SUCCESS='LIKE_POST_BY_ID_SUCCESS'
+export const LIKE_POST_BY_ID_FAILED='LIKE_POST_BY_ID_FAILED'
+
+export const UNLIKE_POST_BY_ID_PENDING='UNLIKE_POST_BY_ID_PENDING'
+export const UNLIKE_POST_BY_ID_SUCCESS='UNLIKE_POST_BY_ID_SUCCESS'
+export const UNLIKE_POST_BY_ID_FAILED='UNLIKE_POST_BY_ID_FAILED'
+
 
 export const SET_ALERT='SET_ALERT'
 export const SET_ALERT_SUCCESS='SET_ALERT_SUCCESS'
@@ -86,6 +94,32 @@ export type deletePostByIdSuccessAction={
 }
 export type deletePostByIdFailedAction={
   type: typeof DELETE_POST_BY_ID_FAILED,
+  payload: Error
+}
+
+export type likePostByIdAction={
+  type: typeof LIKE_POST_BY_ID_PENDING,
+  payload: string
+}
+export type likePostByIdSuccessAction={
+  type: typeof LIKE_POST_BY_ID_SUCCESS,
+  payload: LikeObject
+}
+export type likePostByIdFailedAction={
+  type: typeof LIKE_POST_BY_ID_FAILED,
+  payload: Error
+}
+
+export type unlikePostByIdAction={
+  type: typeof UNLIKE_POST_BY_ID_PENDING,
+  payload: string
+}
+export type unlikePostByIdSuccessAction={
+  type: typeof UNLIKE_POST_BY_ID_SUCCESS,
+  payload: Post
+}
+export type unlikePostByIdFailedAction={
+  type: typeof UNLIKE_POST_BY_ID_FAILED,
   payload: Error
 }
 

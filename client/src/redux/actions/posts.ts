@@ -17,7 +17,14 @@ UPDATE_POST_FAILED,
 PostUpdateForm,
 DELETE_POST_BY_ID_PENDING,
 DELETE_POST_BY_ID_SUCCESS,
-DELETE_POST_BY_ID_FAILED
+DELETE_POST_BY_ID_FAILED,
+LIKE_POST_BY_ID_PENDING,
+LIKE_POST_BY_ID_SUCCESS,
+LIKE_POST_BY_ID_FAILED,
+UNLIKE_POST_BY_ID_PENDING,
+UNLIKE_POST_BY_ID_SUCCESS,
+UNLIKE_POST_BY_ID_FAILED,
+LikeObject
 } from '../../types'
 
 export function getAllPostsPending(){
@@ -111,3 +118,42 @@ export function deletePostByIdError(e:Error){
     payload: e
   }
 }
+
+export function likePostByIdPending(id:string){
+  return {
+    type: LIKE_POST_BY_ID_PENDING,
+    payload: id
+  }
+}
+export function likePostByIdSuccess(data:LikeObject){
+  return {
+    type: LIKE_POST_BY_ID_SUCCESS,
+    payload: data
+  }
+}
+export function likePostByIdError(e:Error){
+  return {
+    type: LIKE_POST_BY_ID_FAILED,
+    payload: e
+  }
+}
+
+export function unlikePostByIdPending(id:string){
+  return {
+    type: UNLIKE_POST_BY_ID_PENDING,
+    payload: id
+  }
+}
+export function unlikePostByIdSuccess(data:Post){
+  return {
+    type: UNLIKE_POST_BY_ID_SUCCESS,
+    payload: data
+  }
+}
+export function unlikePostByIdError(e:Error){
+  return {
+    type: UNLIKE_POST_BY_ID_FAILED,
+    payload: e
+  }
+}
+

@@ -1,8 +1,8 @@
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects'
 import axios from 'axios'
 
-import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, updatePostAction, UPDATE_POST_PENDING, deletePostByIdAction, DELETE_POST_BY_ID_PENDING } from '../../types'
-import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess, updatePostSuccess, updatePostFailed, deletePostByIdSuccess, deletePostByIdError} from '../actions/posts'
+import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, updatePostAction, UPDATE_POST_PENDING, deletePostByIdAction, DELETE_POST_BY_ID_PENDING, likePostByIdAction, LIKE_POST_BY_ID_PENDING, UNLIKE_POST_BY_ID_PENDING, unlikePostByIdAction } from '../../types'
+import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess, updatePostSuccess, updatePostFailed, deletePostByIdSuccess, deletePostByIdError, likePostByIdError, likePostByIdSuccess, unlikePostByIdSuccess, unlikePostByIdError} from '../actions/posts'
 import { setAlert } from '../actions/alert'
 
 function* getAllPosts() {
@@ -175,7 +175,7 @@ function* deleteAPost(action:deletePostByIdAction){
         }))
       yield put(
         setAlert({
-          alertType: 'success',
+          alertType: 'danger',
           statusCode: 500,
           message: 'Internal Server Error',
         })
@@ -193,10 +193,94 @@ function* deleteAPost(action:deletePostByIdAction){
     )
   }
 }
+
+function* likeAPost(action: likePostByIdAction){
+  try {
+    const response=yield call(()=>axios.put(`/api/post/${action.payload}/like`))
+     if(response){
+       yield put(likePostByIdSuccess(response.data))
+       yield put(
+        setAlert({
+          alertType: 'success',
+          statusCode: 201,
+          message: 'Successfully liked a post',
+        })
+       )
+     }
+     else{
+      yield put(
+        likePostByIdError({
+          statusCode: 500,
+          message:'Internal Server Error'
+        })
+      )
+      yield put(
+        setAlert({
+          alertType: 'danger',
+          statusCode: 500,
+          message:'Internal Server Error'        
+        })
+      )
+     }
+  } catch (error) {
+    yield put(
+      likePostByIdError(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
+
+function* unlikeAPost(action: unlikePostByIdAction){
+  try {
+    const response=yield call(()=>axios.put(`/api/post/${action.payload}/unlike`))
+     if(response){
+       yield put(unlikePostByIdSuccess(response.data))
+       yield put(
+        setAlert({
+          alertType: 'success',
+          statusCode: 201,
+          message: 'Successfully unliked a post',
+        })
+       )
+     }
+     else{
+      yield put(
+        unlikePostByIdError({
+          statusCode: 500,
+          message:'Internal Server Error'
+        })
+      )
+      yield put(
+        setAlert({
+          alertType: 'danger',
+          statusCode: 500,
+          message:'Internal Server Error'        
+        })
+      )
+     }
+  } catch (error) {
+    yield put(
+      unlikePostByIdError(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
 export default [
   takeLatest(GET_POSTS_PENDING, getAllPosts),
   takeEvery(GET_POST_BY_ID_PENDING, getPostById),
   takeEvery(CREATE_POST_PENDING, createAPost),
   takeEvery(UPDATE_POST_PENDING, updateAPost),
-  takeLatest(DELETE_POST_BY_ID_PENDING, deleteAPost)
+  takeLatest(DELETE_POST_BY_ID_PENDING, deleteAPost),
+  takeEvery(LIKE_POST_BY_ID_PENDING, likeAPost),
+  takeEvery(UNLIKE_POST_BY_ID_PENDING, unlikeAPost)
 ]
