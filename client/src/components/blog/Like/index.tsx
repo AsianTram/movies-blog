@@ -1,18 +1,38 @@
 import React from 'react'
+import {useDispatch} from 'react-redux'
 
 import './Like.scss'
-import { LikeObject } from '../../../types'
+import { LikeObject, User } from '../../../types'
+import { likePostByIdPending, unlikePostByIdPending } from '../../../redux/actions/posts'
 
-const Like: React.FC<{likes:LikeObject[]}> = ({likes}) => {
+const Like: React.FC<{likes:LikeObject[], userId: string | undefined, postId:string}> = ({likes, userId, postId}) => {
+  let hasLiked= false
+  likes.map(like=> {
+    if(userId && like.user===userId){
+      hasLiked=true
+    }})
+    
+  const dispatch = useDispatch()
+  const likeHandler=()=>{
+    dispatch(likePostByIdPending(postId))
+  }
+  const unlikeHandler=()=>{
+    dispatch(unlikePostByIdPending(postId))
+  }
+  
   return (
     <div className="like">
       <div className="like__details">
-        <p>{likes.length} people </p>
+        {hasLiked ? (<p>You and {likes.length-1} people </p>): (<p>{likes.length} people </p>)}
         <i className="fa fa-thumbs-up"></i>
       </div>
-      <div className="like__btn">
-      <i className="far fa-thumbs-up"></i>
+      {userId ? (
+        <div className="like__btn">
+        { hasLiked? (<i className="fa fa-thumbs-up" onClick={()=> unlikeHandler()}></i>): 
+        (<i className="far fa-thumbs-up" onClick={()=>likeHandler()}></i>)}
       </div>
+      ) : null}
+      
     </div>
   )
 }

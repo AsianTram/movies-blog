@@ -13,6 +13,8 @@ const SinglePost = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const postInfo = useSelector((state: AppState) => state.post.currentPost)
+  const userId = useSelector((state: AppState) => state.user.user?._id)
+
   useEffect(() => {
     dispatch(getPostByIdPending(id))
   }, [dispatch, id])
@@ -20,8 +22,8 @@ const SinglePost = () => {
     <div className="singlepost">
       {postInfo ? (
         <Fragment>
-          <BlogPost postInfo={postInfo} />
-          <Like likes={postInfo.likes}/>
+          <BlogPost postInfo={postInfo}/>
+          <Like likes={postInfo.likes} userId={userId} postId={postInfo._id}/>
           <Comment comments={postInfo.comments}/>
         </Fragment>
       ) : (
