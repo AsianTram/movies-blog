@@ -26,6 +26,17 @@ export const UNLIKE_POST_BY_ID_PENDING='UNLIKE_POST_BY_ID_PENDING'
 export const UNLIKE_POST_BY_ID_SUCCESS='UNLIKE_POST_BY_ID_SUCCESS'
 export const UNLIKE_POST_BY_ID_FAILED='UNLIKE_POST_BY_ID_FAILED'
 
+export const COMMENT_POST_PENDING='COMMENT_POST_PENDING'
+export const COMMENT_POST_SUCCESS='COMMENT_POST_SUCCESS'
+export const COMMENT_POST_FAILED='COMMENT_POST_FAILED'
+
+export const DELETE_COMMENT_BY_ID_PENDING='DELETE_COMMENT_BY_ID_PENDING'
+export const DELETE_COMMENT_BY_ID_SUCCESS='DELETE_COMMENT_BY_ID_SUCCESS'
+export const DELETE_COMMENT_BY_ID_FAILED='DELETE_COMMENT_BY_ID_FAILED'
+
+export const UPDATE_COMMENT_BY_ID_PENDING='UPDATE_COMMENT_BY_ID_PENDING'
+export const UPDATE_COMMENT_BY_ID_SUCCESS='UPDATE_COMMENT_BY_ID_SUCCESS'
+export const UPDATE_COMMENT_BY_ID_FAILED='UPDATE_COMMENT_BY_ID_FAILED'
 
 export const SET_ALERT='SET_ALERT'
 export const SET_ALERT_SUCCESS='SET_ALERT_SUCCESS'
@@ -120,6 +131,55 @@ export type unlikePostByIdSuccessAction={
 }
 export type unlikePostByIdFailedAction={
   type: typeof UNLIKE_POST_BY_ID_FAILED,
+  payload: Error
+}
+
+export type commentAction={
+  type: typeof COMMENT_POST_PENDING,
+  payload: {
+    id:string,
+    value: string
+  }
+}
+export type commentSuccessAction={
+  type: typeof COMMENT_POST_SUCCESS,
+  payload: CommentObject[]
+}
+export type commentFailedAction={
+  type: typeof COMMENT_POST_FAILED,
+  payload: Error
+}
+
+export type deleteCommentAction={
+  type: typeof DELETE_COMMENT_BY_ID_PENDING,
+  payload: {
+    postId:string,
+    commentId: string
+  }
+}
+export type deleteCommentSuccessAction={
+  type: typeof DELETE_COMMENT_BY_ID_SUCCESS,
+  payload: CommentObject[]
+}
+export type deleteCommentFailedAction={
+  type: typeof DELETE_COMMENT_BY_ID_FAILED,
+  payload: Error
+}
+
+export type updateCommentAction={
+  type: typeof UPDATE_COMMENT_BY_ID_PENDING,
+  payload: {
+    postId:string,
+    commentId: string,
+    value: string
+  }
+}
+export type updateCommentSuccessAction={
+  type: typeof UPDATE_COMMENT_BY_ID_SUCCESS,
+  payload: CommentObject[]
+}
+export type updateCommentFailedAction={
+  type: typeof UPDATE_COMMENT_BY_ID_FAILED,
   payload: Error
 }
 

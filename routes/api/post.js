@@ -300,7 +300,7 @@ router.delete('/:postId/comment/:commentId', auth, async (req, res, next) => {
         }
         post.comments.pull(post.comments[commentIndex].id)
         await post.save();
-        res.send('Delete successfully')
+        res.json(post.comments)
     } catch (error) {
         next(error)
     }

@@ -1,8 +1,8 @@
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects'
 import axios from 'axios'
 
-import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, updatePostAction, UPDATE_POST_PENDING, deletePostByIdAction, DELETE_POST_BY_ID_PENDING, likePostByIdAction, LIKE_POST_BY_ID_PENDING, UNLIKE_POST_BY_ID_PENDING, unlikePostByIdAction } from '../../types'
-import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess, updatePostSuccess, updatePostFailed, deletePostByIdSuccess, deletePostByIdError, likePostByIdError, likePostByIdSuccess, unlikePostByIdSuccess, unlikePostByIdError} from '../actions/posts'
+import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, updatePostAction, UPDATE_POST_PENDING, deletePostByIdAction, DELETE_POST_BY_ID_PENDING, likePostByIdAction, LIKE_POST_BY_ID_PENDING, UNLIKE_POST_BY_ID_PENDING, unlikePostByIdAction, commentAction, deleteCommentAction, updateCommentAction, COMMENT_POST_PENDING, DELETE_COMMENT_BY_ID_PENDING, UPDATE_COMMENT_BY_ID_PENDING } from '../../types'
+import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess, updatePostSuccess, updatePostFailed, deletePostByIdSuccess, deletePostByIdError, likePostByIdError, likePostByIdSuccess, unlikePostByIdSuccess, unlikePostByIdError, commentPostFailed, commentPostSuccess, deleteCommentByIdSuccess, deleteCommentByIdError, updateCommentByIdSuccess, updateCommentByIdError} from '../actions/posts'
 import { setAlert } from '../actions/alert'
 
 function* getAllPosts() {
@@ -275,6 +275,126 @@ function* unlikeAPost(action: unlikePostByIdAction){
     )
   }
 }
+
+function* createComment(action:commentAction){
+  try {
+    const response=yield call(()=>axios.put(`/api/post/${action.payload.id}/comment`, {value: action.payload.value}))
+
+    if(response){
+      yield put(commentPostSuccess(response.data))
+      yield put(setAlert({
+        alertType: 'success',
+        statusCode: 201,
+        message: 'Successfully put comment on the post',
+      }))
+    }
+    else{
+      yield put(
+        commentPostFailed({
+          statusCode: 500,
+          message:'Internal Server Error'
+        })
+      )
+      yield put(
+        setAlert({
+          alertType: 'danger',
+          statusCode: 500,
+          message:'Internal Server Error'        
+        })
+      )
+    }
+  } catch (error) {
+    yield put(
+      commentPostFailed(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
+
+function* deleteComment(action:deleteCommentAction){
+  try {
+    const response=yield call(()=>axios.put(`/api/post/${action.payload.postId}/comment/${action.payload.commentId}`))
+
+    if(response){
+      yield put(deleteCommentByIdSuccess(response.data))
+      yield put(setAlert({
+        alertType: 'success',
+        statusCode: 201,
+        message: 'Successfully delete a comment on the post',
+      }))
+    }
+    else{
+      yield put(
+        deleteCommentByIdError({
+          statusCode: 500,
+          message:'Internal Server Error'
+        })
+      )
+      yield put(
+        setAlert({
+          alertType: 'danger',
+          statusCode: 500,
+          message:'Internal Server Error'        
+        })
+      )
+    }
+  } catch (error) {
+    yield put(
+      deleteCommentByIdError(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
+
+function* updateComment(action:updateCommentAction){
+  try {
+    const response=yield call(()=>axios.put(`/api/post/${action.payload.postId}/comment/${action.payload.commentId}`, {value: action.payload.value}))
+
+    if(response){
+      yield put(updateCommentByIdSuccess(response.data))
+      yield put(setAlert({
+        alertType: 'success',
+        statusCode: 201,
+        message: 'Successfully update the comment on the post',
+      }))
+    }
+    else{
+      yield put(
+        updateCommentByIdError({
+          statusCode: 500,
+          message:'Internal Server Error'
+        })
+      )
+      yield put(
+        setAlert({
+          alertType: 'danger',
+          statusCode: 500,
+          message:'Internal Server Error'        
+        })
+      )
+    }
+  } catch (error) {
+    yield put(
+      updateCommentByIdError(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
 export default [
   takeLatest(GET_POSTS_PENDING, getAllPosts),
   takeEvery(GET_POST_BY_ID_PENDING, getPostById),
@@ -282,5 +402,8 @@ export default [
   takeEvery(UPDATE_POST_PENDING, updateAPost),
   takeLatest(DELETE_POST_BY_ID_PENDING, deleteAPost),
   takeEvery(LIKE_POST_BY_ID_PENDING, likeAPost),
-  takeEvery(UNLIKE_POST_BY_ID_PENDING, unlikeAPost)
+  takeEvery(UNLIKE_POST_BY_ID_PENDING, unlikeAPost),
+  takeEvery(COMMENT_POST_PENDING, createComment),
+  takeLatest(DELETE_COMMENT_BY_ID_PENDING, deleteComment),
+  takeEvery(UPDATE_COMMENT_BY_ID_PENDING, updateComment)
 ]

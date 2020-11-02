@@ -24,7 +24,14 @@ LIKE_POST_BY_ID_FAILED,
 UNLIKE_POST_BY_ID_PENDING,
 UNLIKE_POST_BY_ID_SUCCESS,
 UNLIKE_POST_BY_ID_FAILED,
-LikeObject
+LikeObject,
+COMMENT_POST_PENDING,
+COMMENT_POST_SUCCESS,
+COMMENT_POST_FAILED,
+CommentObject,
+UPDATE_COMMENT_BY_ID_PENDING,
+UPDATE_COMMENT_BY_ID_SUCCESS,
+UPDATE_COMMENT_BY_ID_FAILED
 } from '../../types'
 
 export function getAllPostsPending(){
@@ -157,3 +164,59 @@ export function unlikePostByIdError(e:Error){
   }
 }
 
+export function commentPost(data:{id:string, value:string}){
+  return {
+    type: COMMENT_POST_PENDING,
+    payload: data
+  }
+}
+export function commentPostSuccess(data: CommentObject[]){
+  return {
+    type: COMMENT_POST_SUCCESS,
+    payload:data
+  }
+}
+export function commentPostFailed(e: Error){
+  return {
+    type: COMMENT_POST_FAILED,
+    payload: e
+  }
+}
+
+export function deleteCommentByIdPending(data: {postId:string, commentId: string}){
+  return {
+    type: DELETE_POST_BY_ID_PENDING,
+    payload: data
+  }
+}
+export function deleteCommentByIdSuccess(data:CommentObject[]){
+  return {
+    type: DELETE_POST_BY_ID_SUCCESS,
+    payload: data
+  }
+}
+export function deleteCommentByIdError(e:Error){
+  return {
+    type: DELETE_POST_BY_ID_FAILED,
+    payload: e
+  }
+}
+
+export function updateCommentByIdPending(data: {postId:string, commentId: string, value: string}){
+  return {
+    type: UPDATE_COMMENT_BY_ID_PENDING,
+    payload: data
+  }
+}
+export function updateCommentByIdSuccess(data:CommentObject[]){
+  return {
+    type: UPDATE_COMMENT_BY_ID_SUCCESS,
+    payload: data
+  }
+}
+export function updateCommentByIdError(e:Error){
+  return {
+    type: UPDATE_COMMENT_BY_ID_FAILED,
+    payload: e
+  }
+}
