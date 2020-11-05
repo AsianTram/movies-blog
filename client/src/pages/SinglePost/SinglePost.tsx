@@ -11,9 +11,9 @@ import { AppState } from '../../types'
 
 const SinglePost = () => {
   const dispatch = useDispatch()
-  const { id } = useParams()
+  const { id } = useParams<{id:string}>()
   const postInfo = useSelector((state: AppState) => state.post.currentPost)
-  const userId = useSelector((state: AppState) => state.user.user?._id)
+  const user = useSelector((state: AppState) => state.user.user)
 
   useEffect(() => {
     dispatch(getPostByIdPending(id))
@@ -23,8 +23,8 @@ const SinglePost = () => {
       {postInfo ? (
         <Fragment>
           <BlogPost postInfo={postInfo}/>
-          <Like likes={postInfo.likes} userId={userId} postId={postInfo._id}/>
-          <Comment comments={postInfo.comments}/>
+          <Like likes={postInfo.likes} userId={user?._id} postId={postInfo._id}/>
+          <Comment comments={postInfo.comments} user={user}/>
         </Fragment>
       ) : (
           <p>No post found</p>

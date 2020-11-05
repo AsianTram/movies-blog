@@ -318,7 +318,7 @@ function* createComment(action:commentAction){
 
 function* deleteComment(action:deleteCommentAction){
   try {
-    const response=yield call(()=>axios.put(`/api/post/${action.payload.postId}/comment/${action.payload.commentId}`))
+    const response=yield call(()=>axios.delete(`/api/post/${action.payload.postId}/comment/${action.payload.commentId}`))
 
     if(response){
       yield put(deleteCommentByIdSuccess(response.data))

@@ -31,7 +31,10 @@ COMMENT_POST_FAILED,
 CommentObject,
 UPDATE_COMMENT_BY_ID_PENDING,
 UPDATE_COMMENT_BY_ID_SUCCESS,
-UPDATE_COMMENT_BY_ID_FAILED
+UPDATE_COMMENT_BY_ID_FAILED,
+DELETE_COMMENT_BY_ID_PENDING,
+DELETE_COMMENT_BY_ID_SUCCESS,
+DELETE_COMMENT_BY_ID_FAILED
 } from '../../types'
 
 export function getAllPostsPending(){
@@ -185,19 +188,19 @@ export function commentPostFailed(e: Error){
 
 export function deleteCommentByIdPending(data: {postId:string, commentId: string}){
   return {
-    type: DELETE_POST_BY_ID_PENDING,
+    type: DELETE_COMMENT_BY_ID_PENDING,
     payload: data
   }
 }
 export function deleteCommentByIdSuccess(data:CommentObject[]){
   return {
-    type: DELETE_POST_BY_ID_SUCCESS,
+    type: DELETE_COMMENT_BY_ID_SUCCESS,
     payload: data
   }
 }
 export function deleteCommentByIdError(e:Error){
   return {
-    type: DELETE_POST_BY_ID_FAILED,
+    type: DELETE_COMMENT_BY_ID_FAILED,
     payload: e
   }
 }

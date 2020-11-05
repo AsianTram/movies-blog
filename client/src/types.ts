@@ -298,6 +298,7 @@ export enum PostType {
   all= 'all'
 }
 export interface CommentObject {
+  _id:string
   user: string, 
   name: string,
   avatar?: string,

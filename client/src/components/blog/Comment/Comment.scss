@@ -14,6 +14,43 @@
       padding-right: 10px;
     }
   }
+  &__post{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    textarea{
+      width: 80%;
+      height: 100px;
+    }
+    button{
+      padding: 0.5em;
+      margin: 0.25em;
+      background-color: $primary-color2;
+      font-size: medium;
+      color: white;
+      border: 0;
+      border-radius: 5%;
+      &:hover{
+        background-color: $accent1;
+      }
+    }
+  }
+  &__box{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5em;
+  }
+  &__handlers{
+    align-self: flex-end;
+    i{
+      margin: 0 0.5em;
+      &:hover{
+        color: $accent1;
+      }
+    }
+  }
 }
 @media only screen and (min-width: 768px) {
   .blogpost{

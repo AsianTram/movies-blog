@@ -31,7 +31,6 @@ const NavBar = () => {
   const [isToggle, setToggle]= useState(false) 
 
   const isAuthenticated= useSelector((state: AppState)=> state.user.isAuthenticated)
-console.log(isAuthenticated)
   return (
     <nav className="navbar">
       <h3>MovCeb Blog</h3>
