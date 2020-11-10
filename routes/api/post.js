@@ -185,13 +185,12 @@ router.put('/:id/follow', auth, async (req, res, next) => {
             }
         });
     } catch (error) {
-        console.log(error)
         next(error)
     }
 
 })
 
-router.put('/unfollow/:id', auth, async (req, res, next) => {
+router.put('/:id/unfollow', auth, async (req, res, next) => {
 
     try {
         const profile=await Profile.findOne({user: req.user.id})

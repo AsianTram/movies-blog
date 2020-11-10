@@ -1,8 +1,8 @@
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects'
 import axios from 'axios'
 
-import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, updatePostAction, UPDATE_POST_PENDING, deletePostByIdAction, DELETE_POST_BY_ID_PENDING, likePostByIdAction, LIKE_POST_BY_ID_PENDING, UNLIKE_POST_BY_ID_PENDING, unlikePostByIdAction, commentAction, deleteCommentAction, updateCommentAction, COMMENT_POST_PENDING, DELETE_COMMENT_BY_ID_PENDING, UPDATE_COMMENT_BY_ID_PENDING } from '../../types'
-import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess, updatePostSuccess, updatePostFailed, deletePostByIdSuccess, deletePostByIdError, likePostByIdError, likePostByIdSuccess, unlikePostByIdSuccess, unlikePostByIdError, commentPostFailed, commentPostSuccess, deleteCommentByIdSuccess, deleteCommentByIdError, updateCommentByIdSuccess, updateCommentByIdError} from '../actions/posts'
+import { GET_POSTS_PENDING, getPostByIdAction, GET_POST_BY_ID_PENDING, createPostAction, CREATE_POST_PENDING, updatePostAction, UPDATE_POST_PENDING, deletePostByIdAction, DELETE_POST_BY_ID_PENDING, likePostByIdAction, LIKE_POST_BY_ID_PENDING, UNLIKE_POST_BY_ID_PENDING, unlikePostByIdAction, commentAction, deleteCommentAction, updateCommentAction, COMMENT_POST_PENDING, DELETE_COMMENT_BY_ID_PENDING, UPDATE_COMMENT_BY_ID_PENDING, followPostAction, unfollowPostAction, FOLLOW_POST_BY_ID_PENDING, UNFOLLOW_POST_BY_ID_PENDING } from '../../types'
+import { getAllPostsSuccess, getAllPostsError, getPostByIdSuccess, getPostByIdError, createPostFailed, createPostSuccess, updatePostSuccess, updatePostFailed, deletePostByIdSuccess, deletePostByIdError, likePostByIdError, likePostByIdSuccess, unlikePostByIdSuccess, unlikePostByIdError, commentPostFailed, commentPostSuccess, deleteCommentByIdSuccess, deleteCommentByIdError, updateCommentByIdSuccess, updateCommentByIdError, followPost, followPostFailed, unfollowPost, unfollowPostFailed} from '../actions/posts'
 import { setAlert } from '../actions/alert'
 
 function* getAllPosts() {
@@ -395,6 +395,84 @@ function* updateComment(action:updateCommentAction){
     )
   }
 }
+
+function* followAPost(action: followPostAction){
+  try {
+    const response= yield call(()=>axios.put(`/api/post/${action.payload}/follow`))
+    if(response){
+      yield put(followPost(response.data));
+      yield put(setAlert({
+        alertType: 'success',
+        statusCode: 201,
+        message: 'Successfully add to your blog store',
+      }))
+    }
+    else{
+      yield put(
+        followPostFailed({
+          statusCode: 500,
+          message:'Internal Server Error'
+        })
+      )
+      yield put(
+        setAlert({
+          alertType: 'danger',
+          statusCode: 500,
+          message:'Internal Server Error'        
+        })
+      )
+    }
+  } catch (error) {
+    yield put(
+      followPostFailed(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
+
+function* unfollowAPost(action: unfollowPostAction){
+  try {
+    const response= yield call(()=>axios.put(`/api/post/${action.payload}/unfollow`))
+    if(response){
+      yield put(unfollowPost(response.data));
+      yield put(setAlert({
+        alertType: 'success',
+        statusCode: 201,
+        message: 'Successfully remove out of your blog store',
+      }))
+    }
+    else{
+      yield put(
+        unfollowPostFailed({
+          statusCode: 500,
+          message:'Internal Server Error'
+        })
+      )
+      yield put(
+        setAlert({
+          alertType: 'danger',
+          statusCode: 500,
+          message:'Internal Server Error'        
+        })
+      )
+    }
+  } catch (error) {
+    yield put(
+      unfollowPostFailed(error.response.data)
+    )
+    yield put(
+      setAlert({
+        alertType: 'danger',
+        ...error.response.data
+      })
+    )
+  }
+}
 export default [
   takeLatest(GET_POSTS_PENDING, getAllPosts),
   takeEvery(GET_POST_BY_ID_PENDING, getPostById),
@@ -405,5 +483,7 @@ export default [
   takeEvery(UNLIKE_POST_BY_ID_PENDING, unlikeAPost),
   takeEvery(COMMENT_POST_PENDING, createComment),
   takeLatest(DELETE_COMMENT_BY_ID_PENDING, deleteComment),
-  takeEvery(UPDATE_COMMENT_BY_ID_PENDING, updateComment)
+  takeEvery(UPDATE_COMMENT_BY_ID_PENDING, updateComment),
+  takeEvery(FOLLOW_POST_BY_ID_PENDING, followAPost),
+  takeEvery(UNFOLLOW_POST_BY_ID_PENDING, unfollowAPost)
 ]

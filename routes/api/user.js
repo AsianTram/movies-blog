@@ -8,6 +8,7 @@ const {check, validationResult } = require('express-validator');
 const User = require('../../models/User.js');
 const { BadRequestError, UnauthorizedError} = require('../../helpers/apiError.js');
 const auth= require('../../middleware/auth');
+const Profile = require('../../models/Profile.js');
 
 
 const router = express.Router();
@@ -34,6 +35,10 @@ router.post('/signup', [check('name', 'Name is required').not().isEmpty(), check
         //Create User
         var new_user= new User({name, email, avatar, password});
         await new_user.save();
+
+        //Create initial profile
+        var new_profile= new Profile({user: new_user.id, name})
+        await new_profile.save()
 
         //Generate web token
         var token = jwt.sign({user:{id:new_user._id}}, config.get('privateKey'), {expiresIn:'2h'});

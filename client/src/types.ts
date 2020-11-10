@@ -38,6 +38,14 @@ export const UPDATE_COMMENT_BY_ID_PENDING='UPDATE_COMMENT_BY_ID_PENDING'
 export const UPDATE_COMMENT_BY_ID_SUCCESS='UPDATE_COMMENT_BY_ID_SUCCESS'
 export const UPDATE_COMMENT_BY_ID_FAILED='UPDATE_COMMENT_BY_ID_FAILED'
 
+export const FOLLOW_POST_BY_ID_PENDING='FOLLOW_POST_BY_ID_PENDING'
+export const FOLLOW_POST_BY_ID_SUCCESS='FOLLOW_POST_BY_ID_SUCCESS'
+export const FOLLOW_POST_BY_ID_FAILED='FOLLOW_POST_BY_ID_FAILED'
+
+export const UNFOLLOW_POST_BY_ID_PENDING='UNFOLLOW_POST_BY_ID_PENDING'
+export const UNFOLLOW_POST_BY_ID_SUCCESS='UNFOLLOW_POST_BY_ID_SUCCESS'
+export const UNFOLLOW_POST_BY_ID_FAILED='UNFOLLOW_POST_BY_ID_FAILED'
+
 export const SET_ALERT='SET_ALERT'
 export const SET_ALERT_SUCCESS='SET_ALERT_SUCCESS'
 export const REMOVE_ALERT='REMOVE_ALERT'
@@ -206,6 +214,41 @@ export type updatePostSuccessAction={
 }
 export type updatePostFailedAction={
   type: typeof UPDATE_POST_FAILED,
+  payload: Error
+}
+
+export type followPostAction={
+  type: typeof FOLLOW_POST_BY_ID_PENDING,
+  payload: string
+}
+export type followPostSuccessAction={
+  type: typeof FOLLOW_POST_BY_ID_SUCCESS
+  payload: {
+    user: string,
+    followedpost: {
+        postid: string,
+        type: PostType
+    }
+}
+}
+export type followPostFailedAction={
+  type: typeof FOLLOW_POST_BY_ID_FAILED,
+  payload: Error
+}
+
+export type unfollowPostAction={
+  type: typeof UNFOLLOW_POST_BY_ID_PENDING,
+  payload: string
+}
+export type unfollowPostSuccessAction={
+  type: typeof UNFOLLOW_POST_BY_ID_SUCCESS
+  payload: {
+    profilefollow: string,
+    postUnfollow:string
+  }
+}
+export type unfollowPostFailedAction={
+  type: typeof UNFOLLOW_POST_BY_ID_FAILED,
   payload: Error
 }
 
