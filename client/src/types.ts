@@ -62,6 +62,11 @@ export const LOAD_USER='LOAD_USER'
 export const LOAD_USER_SUCCESS='LOAD_USER_SUCCESS'
 export const LOAD_USER_FAILED='LOAD_USER_FAILED'
 
+export const LOAD_PROFILE='LOAD_PROFILE'
+export const LOAD_PROFILE_SUCCESS='LOAD_PROFILE_SUCCESS'
+export const LOAD_PROFILE_FAILED='LOAD_PROFILE_FAILED'
+
+
 export const LOGOUT='LOGOUT'
 
 export const UPDATE_PROFILE_PENDING='UPDATE_PROFILE_PENDING'
@@ -293,6 +298,17 @@ export type loadUserFailedAction={
   payload: Error
 }
 
+export type loadProfileAction={
+  type: typeof LOAD_PROFILE
+}
+export type loadProfileSuccessAction={
+  type: typeof LOAD_PROFILE_SUCCESS,
+  payload: Profile
+}
+export type loadProfileFailedAction={
+  type: typeof LOAD_PROFILE_FAILED,
+  payload: Error
+}
 
 export type logoutAction={
   type: typeof LOGOUT

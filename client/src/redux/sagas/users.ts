@@ -3,6 +3,7 @@ import { LOGIN, SIGNUP, signupAction, loginAction, LOAD_USER } from "../../types
 import axios from "axios";
 import { loginSuccess, loginFailed, signupSuccess, signupFailed, loadUserFailed, loadUserSuccess, loadUser as loadUserAction} from "../actions/users";
 import { setAlert } from "../actions";
+import { loadProfilePending } from "../actions/profile";
 
 function* login(action:loginAction){
   try {
@@ -15,6 +16,8 @@ function* login(action:loginAction){
         statusCode: 201
       }))
       yield put(loadUserAction())
+      yield put(loadProfilePending())
+
     }
     else{
       yield put(loginFailed({
@@ -76,7 +79,7 @@ function* loadUser(){
     }
     else{
       yield put(loadUserFailed({
-        message: 'Cannot make the request',
+        message: 'Cannot load user',
         statusCode: 500
       }))
     }

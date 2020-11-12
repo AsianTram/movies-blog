@@ -18,6 +18,7 @@ import Alert from './components/layout/Alert';
 import setTokenToHeader from './utils/setTokenToHeader';
 import { loadUser } from './redux/actions/users';
 import BlogUpdate from './components/blog/BlogUpdate';
+import { loadProfilePending } from './redux/actions/profile';
 
 
 
@@ -27,10 +28,12 @@ function App() {
   if (localStorage.token) {
     setTokenToHeader(localStorage.token)
     dispatch(loadUser())
+    dispatch(loadProfilePending())
   }
 
   useEffect(() => {
     dispatch(loadUser())
+    dispatch(loadProfilePending())
   }, [dispatch])
   return (
     <div className="App">
