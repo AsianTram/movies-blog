@@ -23,6 +23,11 @@ const initialState:AppState = {
     token: localStorage.getItem('token'),
     pending: false,
     error: null
+  },
+  profile: {
+    profile: null,
+    pending:false,
+    error: null
   }
 }
 

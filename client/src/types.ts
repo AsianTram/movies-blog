@@ -64,6 +64,9 @@ export const LOAD_USER_FAILED='LOAD_USER_FAILED'
 
 export const LOGOUT='LOGOUT'
 
+export const UPDATE_PROFILE_PENDING='UPDATE_PROFILE_PENDING'
+export const UPDATE_PROFILE_SUCCESS='UPDATE_PROFILE_SUCCESS'
+export const UPDATE_PROFILE_FAILED='UPDATE_PROFILE_FAILED'
 
 export type setAlertAction={
   type: typeof SET_ALERT,
@@ -295,6 +298,19 @@ export type logoutAction={
   type: typeof LOGOUT
 }
 
+export type updateProfileAction={
+  type: typeof UPDATE_PROFILE_PENDING,
+  payload: ProfileForm
+}
+export type updateProfileSuccessAction={
+  type: typeof UPDATE_PROFILE_SUCCESS,
+  payload: Profile
+}
+export type updateProfileFailedAction={
+  type: typeof UPDATE_PROFILE_FAILED,
+  payload: Error
+}
+
 export interface AlertState{
   alerts: Alert[]
 }
@@ -312,11 +328,17 @@ export interface UsersState{
   error: Error | null,
   pending: boolean
 }
+export interface ProfileState{
+  profile: Profile | null,
+  pending: boolean,
+  error: Error | null
+}
 
 export interface AppState{
   alert: AlertState,
   post: PostsState,
-  user: UsersState
+  user: UsersState,
+  profile: ProfileState
 }
 
 export interface Post{
@@ -417,4 +439,15 @@ export interface SignUpForm{
   name: string,
   email: string,
   password: string
+}
+export interface ProfileForm{
+  name: string,
+  bio?: string,
+  socialmedia?: {
+    facebook?: string,
+    instagram?: string,
+    linkedin?: string,
+    website?: string,
+    youtube?: string
+  }
 }
