@@ -73,6 +73,10 @@ export const UPDATE_PROFILE_PENDING='UPDATE_PROFILE_PENDING'
 export const UPDATE_PROFILE_SUCCESS='UPDATE_PROFILE_SUCCESS'
 export const UPDATE_PROFILE_FAILED='UPDATE_PROFILE_FAILED'
 
+export const DELETE_PROFILE_PENDING='DELETE_PROFILE_PENDING'
+export const DELETE_PROFILE_SUCCESS='DELETE_PROFILE_SUCCESS'
+export const DELETE_PROFILE_FAILED='DELETE_PROFILE_FAILED'
+
 export type setAlertAction={
   type: typeof SET_ALERT,
   payload: AlertForm
@@ -324,6 +328,18 @@ export type updateProfileSuccessAction={
 }
 export type updateProfileFailedAction={
   type: typeof UPDATE_PROFILE_FAILED,
+  payload: Error
+}
+
+export type deleteProfileAction={
+  type: typeof DELETE_PROFILE_PENDING,
+}
+export type deleteProfileSuccessAction={
+  type: typeof DELETE_PROFILE_SUCCESS,
+  payload: string
+}
+export type deleteProfileFailedAction={
+  type: typeof DELETE_PROFILE_FAILED,
   payload: Error
 }
 
