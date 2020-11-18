@@ -12,7 +12,7 @@ const BlogUpdate = () => {
   const [name, setName]=useState('')
   const [picture, setPicture]=useState('')
   const [content, setContent]=useState('')
-  const { id } = useParams()
+  const { id } = useParams<{id:string}>()
   const dispatch = useDispatch()
 
 

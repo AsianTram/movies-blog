@@ -19,6 +19,8 @@ import setTokenToHeader from './utils/setTokenToHeader';
 import { loadUser } from './redux/actions/users';
 import BlogUpdate from './components/blog/BlogUpdate';
 import { loadProfilePending } from './redux/actions/profile';
+import ProfileInfo from './components/profile/ProfileInfo/index';
+import ProfileUpdate from './components/profile/ProfileUpdate/index';
 
 
 
@@ -62,6 +64,12 @@ function App() {
           </Route>
           <Route path="/updatepost/:id">
             <BlogUpdate />
+          </Route>
+          <Route path="/profile">
+            <ProfileInfo />
+          </Route>
+          <Route path="/edit-profile">
+            <ProfileUpdate />
           </Route>
         </main>
         <Footer />
