@@ -40,7 +40,8 @@ router.put('/update/', [auth, check('name', "Name is required").not().isEmpty()]
             var socialmedia= {facebook, instagram,linkedin,website,youtube};
             
             // Search for profile
-            var profile=await Profile.findOneAndUpdate({user: req.user.id},{name, bio, socialmedia});
+            let profile=await Profile.findOneAndUpdate({user: req.user.id},{name, bio, socialmedia});
+            profile=await Profile.findOne({user: req.user.id});
             res.json(profile);
             
         } catch (error) {
