@@ -1,0 +1,42 @@
+.profile{
+  width: 90%;
+  margin: 2em auto;
+  background-color: white;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  .profile-btns{
+    width: fit-content;
+    align-self: flex-end ;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    font-size: medium;
+    button{
+      margin-left:1em;
+      i {
+        color: white;
+      }
+    }
+  }
+  .profile-info{
+    margin-top: 1em;
+    table{
+      width: 100%;
+      h5{
+        margin-left: 0.5em;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 768px) {
+  .profile{
+    width: 60%;
+    .profile-info{
+      &__title{
+        width: 40%;
+      }
+    }
+  }
+  
+}

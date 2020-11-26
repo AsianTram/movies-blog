@@ -1,0 +1,14 @@
+.profile-update{
+  width: 80%;
+  margin: 1em auto;
+  padding: 1em;
+  background-color: white;
+  button{
+    margin: 0 0.5em;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .profile-update{
+    width: 60%
+  }
+}

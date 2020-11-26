@@ -1,10 +1,12 @@
 import React, {useState, useEffect, Fragment} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { setAlert } from '../../../redux/actions';
 import { updateProfilePending } from '../../../redux/actions/profile';
 import { AppState } from '../../../types';
 import Spinner from '../../layout/Spinner/index';
+import './ProfileUpdate.scss';
 
 const ProfileUpdate = () => {
   const dispatch = useDispatch()
@@ -49,7 +51,7 @@ const ProfileUpdate = () => {
         <Fragment>
           {profileState.error ? null : (
             <div className="profile-update">
-            <h3>Create a New User Account</h3>
+            <h3>Update User Profile</h3>
              <form>
              <div className="form-group">
                 <label htmlFor="name">Full Name</label>
@@ -80,7 +82,7 @@ const ProfileUpdate = () => {
                 <input type="text" className="form-control" id="youtube" value={youtube} onChange={(e)=> setYoutube(e.target.value)}/>
               </div>
               <button type="button" onClick={()=> submitHandler()} className="btn btn-primary">Save</button>
-              <button type="button" className="btn btn-primary"><Link to="/profile">Cancel</Link></button>
+              <button type="button" className="btn btn-primary"><Link to="/profile" style={{color: 'white'}}>Cancel</Link></button>
       
             </form>
           </div>
