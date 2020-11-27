@@ -1,8 +1,9 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState , Dispatch, SetStateAction } from 'react'
+import { PostType } from '../../../types';
 
 import './Filter.scss'
 
-const Filter = () => {
+const Filter: React.FC<{type: PostType, setType: Dispatch<SetStateAction<PostType>>}> = ({type, setType}) => {
   const [kindToggle, setKindToggle] = useState(false);
   const [sortToggle, setSortToggle] = useState(false);
 
@@ -14,11 +15,11 @@ const Filter = () => {
 
           {!kindToggle ? null : (
             <div className="filtermobile__options">
-              <input type="radio" name="kind" id="All" value="All" />
+              <input type="radio" name="kind" id="All" value="All" onClick={()=>setType(PostType.all)}/>
               <label htmlFor="All">All kinds</label><br />
-              <input type="radio" name="kind" id="Movie" value="Movie" />
+              <input type="radio" name="kind" id="Movie" value="Movie" onClick={()=>setType(PostType.movie)}/>
               <label htmlFor="Movie">Movie</label><br />
-              <input type="radio" name="kind" id="Celebrity" value="Celebrity" />
+              <input type="radio" name="kind" id="Celebrity" value="Celebrity" onClick={()=>setType(PostType.celebrity)}/>
               <label htmlFor="Celebrity">Celebrity</label>
             </div>
           )}
