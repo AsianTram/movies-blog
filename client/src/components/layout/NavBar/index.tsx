@@ -14,8 +14,8 @@ const AuthRoute= ()=>{
   return (
     <div className="navbar__auth">
       <Link to="/profile"><p>Profile</p></Link>
-      <Link to="/"><p>Own posts</p></Link>
-      <Link to="/"><p>Followed posts</p></Link>
+      <Link to="/own-posts"><p>Own posts</p></Link>
+      <Link to="/followed-posts"><p>Followed posts</p></Link>
 
 
       <button onClick={()=>logoutHandler()}>Logout</button>

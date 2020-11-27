@@ -21,6 +21,8 @@ import BlogUpdate from './components/blog/BlogUpdate';
 import { loadProfilePending } from './redux/actions/profile';
 import ProfileInfo from './components/profile/ProfileInfo/index';
 import ProfileUpdate from './components/profile/ProfileUpdate/index';
+import OwnPosts from './pages/OwnPosts/OwnPosts';
+import FollowedPosts from './pages/FollowedPosts/FollowedPosts';
 
 
 
@@ -52,7 +54,12 @@ function App() {
           <Route exact path="/posts">
             <PostList/>
           </Route>
-          
+          <Route exact path="/own-posts">
+            <OwnPosts/>
+          </Route>
+          <Route exact path="/followed-posts">
+            <FollowedPosts/>
+          </Route>
           <Route path="/login">
             <Login />
           </Route>

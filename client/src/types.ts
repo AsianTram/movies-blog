@@ -441,7 +441,10 @@ export interface Profile {
     website?: string,
     youtube?: string
   },
-  post: Post[],
+  posts: [{
+    type: PostType,
+    postid: string
+  }],
   followedposts: [{
     type: PostType,
     postid: string
