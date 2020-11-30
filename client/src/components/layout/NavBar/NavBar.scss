@@ -10,8 +10,8 @@
   &__right{
     display: flex;
     justify-content: space-around;
-    align-items: flex-start;
-    padding-top: 25px;
+    align-items: baseline;
+    padding-top: 0;
   }
   &__links{
     display: none;
@@ -29,12 +29,27 @@
     }
   }
   &__auth{
-    button{
+    align-items: center;
+    margin: 0 1em;
+    &__logout{
       margin: auto 5px;
       background-color: $accent1;
       border-radius: 5%;
       border: none;
       padding: 5px 8px;
+    }
+    &__btn{
+      background-color: transparent;
+      border: none;
+      width: fit-content;
+      text-align: center;
+      border-bottom: 3px solid transparent;
+      i {
+        color: black;
+      }
+      &:hover{
+        border-color: black;
+      }
     }
   }
   &__hamburger{
