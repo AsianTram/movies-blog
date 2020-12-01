@@ -16,21 +16,18 @@ const OwnPosts = () => {
   const allPosts = useSelector((state: AppState) => state.post.posts)
   const [posts, setPosts] = useState<Post[]>([])
   useEffect(() => {
-    if (ownposts!==undefined && allPosts) {
+    if (ownposts!==undefined && allPosts.length!==0) {
       let postIds = ownposts?.map(p => p.postid)
       switch (type) {
         case PostType.all:
           setPosts(allPosts.filter(p => postIds?.includes(p._id)))
           break;
         case PostType.movie:
-          console.log("hmm")
           postIds = ownposts?.filter(p => p.type === PostType.movie).map(p => p.postid)
           setPosts(allPosts.filter(p => postIds?.includes(p._id)))
           break;
         case PostType.celebrity:
           postIds = ownposts?.filter(p => p.type === PostType.celebrity).map(p => p.postid)
-          console.log("Ceb ")
-          console.log(postIds)
           setPosts(allPosts.filter(p => postIds?.includes(p._id)))
           break;
         default:

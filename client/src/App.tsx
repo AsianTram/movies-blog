@@ -23,6 +23,7 @@ import ProfileInfo from './components/profile/ProfileInfo/index';
 import ProfileUpdate from './components/profile/ProfileUpdate/index';
 import OwnPosts from './pages/OwnPosts/OwnPosts';
 import FollowedPosts from './pages/FollowedPosts/FollowedPosts';
+import PrivateRoute from './Routes/PrivateRoute';
 
 
 
@@ -45,39 +46,28 @@ function App() {
         <NavBar />
         <main>
           <Alert/>
-          <Route exact path="/">
-            <Intro />
-          </Route>
-          <Route path="/posts/:id">
-            <SinglePost />
-          </Route>
-          <Route exact path="/posts">
-            <PostList/>
-          </Route>
-          <Route exact path="/own-posts">
-            <OwnPosts/>
-          </Route>
-          <Route exact path="/followed-posts">
-            <FollowedPosts/>
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/newpost">
-            <BlogForm />
-          </Route>
-          <Route path="/updatepost/:id">
-            <BlogUpdate />
-          </Route>
-          <Route path="/profile">
-            <ProfileInfo />
-          </Route>
-          <Route path="/edit-profile">
-            <ProfileUpdate />
-          </Route>
+          <Route exact path="/" component={Intro}/>
+            
+          <Route path="/posts/:id" component={SinglePost}/>
+
+          <Route exact path="/posts" component={PostList}/>
+
+          <Route path="/login" component={Login}/>
+            
+          <Route path="/signup" component={SignUp}/>
+
+          <PrivateRoute path="/own-posts" component={OwnPosts}/>
+          
+          <PrivateRoute path="/followed-posts" component={FollowedPosts}/>
+            
+          <PrivateRoute path="/newpost" component={BlogForm}/>
+            
+          <PrivateRoute path="/updatepost/:id" component={BlogUpdate}/>
+            
+          <PrivateRoute path="/profile"component={ProfileInfo}/>
+            
+          <PrivateRoute path="/edit-profile" component={ProfileUpdate}/>
+            
         </main>
         <Footer />
       </Router>
