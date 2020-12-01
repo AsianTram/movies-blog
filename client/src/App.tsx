@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {
   BrowserRouter as Router,
+  Switch,
   Route,
 } from "react-router-dom";
 import { useDispatch} from 'react-redux'
@@ -24,6 +25,7 @@ import ProfileUpdate from './components/profile/ProfileUpdate/index';
 import OwnPosts from './pages/OwnPosts/OwnPosts';
 import FollowedPosts from './pages/FollowedPosts/FollowedPosts';
 import PrivateRoute from './Routes/PrivateRoute';
+import Notfound from './components/layout/Notfound/index';
 
 
 
@@ -43,9 +45,11 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <NavBar />
+      <NavBar />
         <main>
           <Alert/>
+      <Switch>
+        
           <Route exact path="/" component={Intro}/>
             
           <Route path="/posts/:id" component={SinglePost}/>
@@ -67,8 +71,10 @@ function App() {
           <PrivateRoute path="/profile"component={ProfileInfo}/>
             
           <PrivateRoute path="/edit-profile" component={ProfileUpdate}/>
-            
-        </main>
+          <Route component={Notfound}/>
+        
+      </Switch>
+      </main>
         <Footer />
       </Router>
 
