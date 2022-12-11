@@ -22,7 +22,7 @@
     "babel-jest": "^26.3.0",
     "bcryptjs": "^2.4.3",
     "config": "^3.2.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-validator": "^6.2.0",
     "gravatar": "^1.8.0",
     "jest": "^26.4.2",
